@@ -1,0 +1,302 @@
+<style>
+  .cartmini{
+  	position:absolute;
+    top:70px;
+    right:20px;
+    
+    z-index:999;
+    background-color:lightgray;
+    height:auto;
+    width:30%;
+  }
+  .justselect1{
+    width:100%;
+  }
+  .minicartbtn{
+  	margin-bottom:20px;
+    padding-right:10px;
+    padding-left:10px;
+  }
+  .btn{
+  	padding:15px;
+  	background: #75231a;
+    color:#fff;
+    border:none;
+    width:100%;
+  }
+  .remove-item{
+  	color: #af8e5e;
+  }
+  .action{
+  	margin-top:5px;
+  }
+  .miniempty{
+  	padding:10px;
+    text-align:center;
+    font-size:24px;
+    margin-top:20px;
+    color:white;
+  }
+  .btnupdate{
+  	visibility:hidden;
+  }
+  .svg{
+  	position:absolute;
+    top:-9%;
+    left:92%;
+    cursor:pointer;
+  }
+  .blankcart{
+  	text-align:center;
+    font-size:18px;
+    color:white;
+  }
+  .mini{
+  	margin-bottom:20px;
+    width:100%;
+   	padding:15px;
+  }
+  .emptycart{
+  	padding-left:10px;
+    padding-right:10px;
+  }
+</style>
+{% include 'bold-cart' %}
+<section class="account-section cartmini">
+    <div class="container">
+      <form action="/cart" method="post">
+        {%- if cart.item_count > 0 -%}
+        <div class="col-row ai-s">
+            <div class="col-full">
+                <div class="sec-title">
+                    <h2>Cart</h2>
+                </div>
+                <div class="cart-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th colspan="2">Cart Items</th>
+                            <th class="item-qty">Qty</th>
+                            <th class="item-price">Item Price</th>
+                            <th class="item-total">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          {%- for item in cart.items -%}
+                          {% include 'bold-cart-item' with item %}
+                            <tr>
+                                <td class="item-image" data-column="Product Image"><a href="{{ item.url }}"><img src="{{ item | img_url: 'master' }}"  alt="{{ item.title | escape }}" /></a></td>
+                                <td class="item-details" data-column="Item Details">
+                                    <a href="{{ item.url }}" class="cart-item-name">{{ item.product.title }}</a>
+                                      {%- for size in item.variant.title -%}
+                                          {% for option in item.product.options %}
+                                            {{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+                                          {% endfor %}
+                                      {%- endfor -%}
+
+                                  {{ bold_recurring_desc }}
+                                  {{ bold_item_properties }}
+                                  
+                                  <div class="action">
+                                    <a  href="#" data-id="{{item.variant_id}}" class="remove-item">Remove</a>
+                                  </div>
+                                </td>
+                                <td class="item-qty" data-column="Qty">
+                                <div class="cart__qty">
+                                  <input class="justselect1" data-id="{{item.id}}" type="text" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" onfocus="this.select();" min="0" pattern="[0-9]*">
+                                  <span class="adjust plus">+</span>
+                                  <span class="adjust minus">-</span>
+                                </div>
+                                </td>
+                                <td class="item-price" data-column="Item Price">{{ bold_item_price | money }}</td>
+                                <td class="item-total" data-column="Total">{{ bold_item_line_price | money }}</td>
+                            </tr>
+                          {%- endfor -%}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="subtotal-table">
+                    <div class="couponcode">
+                    </div>
+                    <div class="subtotal-box">
+                        <table>
+                          <tr>
+                             {%- if cart.cart_level_discount_applications != blank -%}
+                              <div class="order-discount-card-wrapper">
+                                {%- for discount_application in cart.cart_level_discount_applications -%}
+                                  <span class="order-discount order-discount--title order-discount--cart">
+                                  <td>{{- discount_application.title -}}: </td>
+                                  </span>
+                                 <th>-{{ discount_application.total_allocated_amount | money }}</th>
+                                {%- endfor -%}
+                              </div>
+            			{%- endif -%}
+                          </tr>
+<!--                         <tr>
+                            <td>Subtotal: </td>
+                            <th>{{ bold_cart_total_price | money }}</th>
+                        </tr> -->
+                        <tr class="grand-total">
+                            <th>GRAND TOTAL : </th>
+                            <th>{{ cart.total_price | money }}</th>
+                        </tr>
+                    	</table>
+                    </div>
+                </div>
+              	
+                <div class="text-right">
+                  	<div class="minicartbtn">
+                   		<button type="submit" class="btnupdate" name="update" >Update</button>
+              		</div>
+                  <div class="minicartbtn">
+                    <button type="submit" class="btn" name="checkout">Procced to Checkout</button>
+                  </div>
+                  <div class="minicartbtn">
+                    <button type="submit" class="btn" name="cart">View Cart</button>
+                  </div>
+                </div>
+              	<div class="svg" id="popupBoxClose">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"/></svg>
+              	</div>
+            </div>
+        </div>
+        {% comment %}
+        {%- else -%}
+        <div class="blankcart">
+          <p>There are No product available in your Cart</p>
+        </div>
+        <div class="text-right">
+          <div class="minicartbtn">
+            <button type="submit" class="btnupdate" name="update" >Update</button>
+          </div>
+          <div class="minicartbtn">
+            <button type="submit" class="btn" name="cart">View Cart</button>
+          </div>
+        </div>
+        <div class="svg" id="popupBoxClose">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"/></svg>
+        </div>
+        {% endcomment %}
+        {%- endif -%}
+       </form>
+    </div>
+</section>
+<script>
+  $(document).ready( function(){
+    function addcart(){
+        $.get('/cart/?view=mini',function(data){
+          $('#ajax').html(data);
+          $('#ajax').removeClass('loading');
+        });
+      }
+    function refreshcart(cart){
+    	$('.cart-count').text(cart.item_count);
+    }
+      $('.justselect1').change('input', function() {
+        $( ".btnupdate" ).trigger( "click" );
+      });
+      $('#add-to-cart').click(function(e){
+        var form=$(this).closest("form");
+        alert();
+        e.preventDefault();
+        $.ajax({
+          type:"GET",
+          url:"/cart/add.js",
+          data:form.serialize(),
+          dataType:"JSON"
+        }).done(function(data){
+          $.getJSON('/cart.js',function(cart){
+
+            if(typeof window.BOLD !== 'undefined'
+               && typeof window.BOLD.common !== 'undefined'
+               && typeof window.BOLD.common.cartDoctor !== 'undefined') {
+              // NOTE: "cart" should be the variable containing the cart json data
+              cart = window.BOLD.common.cartDoctor.fix(cart);
+            }
+
+            $('.cart-count').text(cart.item_count);
+          });
+          addcart();
+          console.log(data);
+        });
+      });
+    //=====================================Remove
+    
+       $("#ajax").on('click', "a.remove-item", function(e){
+        $('#ajax').addClass('loading');
+        e.preventDefault();
+        var id = $(this).data("id");
+        Shopify.changeItem(id,0, function(c){
+          $('.cart-count').text(c.item_count);
+          if(!c.item_count) {
+            $('#ajax').empty();
+            $('#ajax').append('<p class="emptyCart text-center">You have no items in your shopping cart.</p>');
+            $('#ajax').removeClass('has-item');
+            $('#ajax').removeClass('loading');
+            $.getJSON("/cart.js", function(cart){
+				refreshcart(cart);
+            });
+          } else {
+				addcart();
+          }
+        });
+        $.getJSON("/cart.js", function(cart) {
+			refreshcart(cart);
+        });
+      }); 
+    
+    //==================================Update
+    
+        $('body').on('click', '.adjust',function(){
+        var input = $(this).parent().find('input');
+        var ip = parseInt(input.val());
+        console.log(ip);
+          if($(this).hasClass('plus')){
+          	ip=ip+1;
+          }else{
+          	ip=ip-1;
+          }
+          if(ip==0){
+          	return false;
+          }
+          input.val(ip);
+        $('#ajax').addClass('loading');
+        var id = parseInt(input.attr('data-id'));
+        $.ajax({
+          type: 'GET',
+          url: '/cart/update.js',
+          data: 'updates['+id+']='+ip,
+          dataType: 'json'
+        }).done(function(data){
+          $.getJSON("/cart.js", function(cart){
+            refreshcart(cart);
+          });
+          $('#ajax').removeClass('loading');
+          console.log(data);
+        });
+      });
+ 	$('#ajax').hide();
+    $('.cart-icon').click(function(){
+      loadPopupBox();
+    });
+    
+    $('#popupBoxClose').click( function(){            
+      unloadPopupBox();
+    });
+
+    $(document).mouseup(function (e){
+     var popup = $("#ajax");
+     if (!$('.cart-icon').is(e.target) && !popup.is(e.target) && popup.has(e.target).length == 0){
+         popup.hide(500);
+     }
+ 	});
+
+    function unloadPopupBox() { 
+      $('#ajax').fadeOut("slow"); 
+    }    
+
+    function loadPopupBox() {
+      $('#ajax').fadeIn("3000");        
+    }        
+  });
+</script>

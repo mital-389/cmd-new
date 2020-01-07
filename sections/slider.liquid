@@ -1,0 +1,63 @@
+<section class="cta-area">
+    <div class="container">
+        <div class="cta-bg">
+           {%- assign product = all_products[section.settings.product] -%}
+            <div class="col-row">
+                <div class="col-two">
+                    <div class="cta-slider-inner">
+                        <div class="cta-slider">
+                         {%- for image in product.images -%}
+                            <div class="cta-slide">{{ image | img_url:'630x' | img_tag }}</div>
+                      	  {%- endfor -%}
+                      	</div>
+                    </div>
+                </div>
+                <div class="col-two">
+                    <div class="col-cover">
+                        <div class="sec-title">
+                            <h2>{{ product.title }}</h2>
+                            <p>{{ product.description}}</p>
+                        </div>
+                        <div class="link-btn"><a href="{{ section.settings.btnurl }}">{%- if section.settings.btntext!= blank -%}{{ section.settings.btntext  }}{%- endif -%} <span>{{ section.settings.arrow }}</span></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Slider",
+    "settings": [
+        {
+          "type":"text",
+          "id":"btntext",
+          "label":"Button Lable",
+          "default":"Shop Now"
+        },
+        {
+          "type":"text",
+          "id":"arrow",
+          "label":"Arrow",
+          "default":"&#10141;"
+        },
+		{
+ 	       	"type":"product",
+    	   	"id":"product",
+			"label":"Choose Product"
+        },
+		{
+			"type":"url",
+			"id":"btnurl",
+			"label":"Button Url"
+		}
+	],
+	"presets":[
+		{
+			"name":"Slider Content",
+			"category":"Slider"
+		}
+	]
+  }
+{% endschema %}
+

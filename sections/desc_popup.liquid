@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section class="product-desc-popup">
+      <div id="closebtn" onclick="closepopup()"><i class="far fa-times-circle"></i></div>
+      {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+      <div class="col">
+        <div class="product-desc">
+          <h6 id = "price-preview">{{ product.description }}</h6>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

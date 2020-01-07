@@ -1,0 +1,140 @@
+{{ 'instafeed-min.js' | asset_url | script_tag }}
+<section class="newsletter">
+    <div class="container footer-container">
+        <div class="row ai-c">
+            <div class="col-two">
+                <div class="instagram-gallery" id="instafeed">
+<!--                   {%- for block in section.blocks -%}
+                  {% if block.type=='news-letter' %}
+                    <div class="instagram-item">
+                        <a href="#">
+                          {%- if block.settings.image != blank -%}
+                              {{ block.settings.image | img_url:'master' | img_tag:'Instagram' }}
+                              <div class="insta-hover">
+                                  <span class="icon">{{ block.settings.svg }}</span>
+                              </div>
+                              <span class="meta-details">{{ block.settings.svg-details }}</span>
+                          {%- endif -%}
+                        </a>
+                    </div>
+                  {%- endif -%}
+                  {% endfor %} -->
+                </div>
+            </div>
+        
+            <div class="col-two">
+                <div class="subscribe-area">
+                    <div class="sec-title">
+                        <h2>{{ section.settings.heading }}</h2>
+                        <p>{{ section.settings.paragraph }}</p>
+                    </div>
+                    <div class="subscribe-form">
+                        <form>
+                            <input type="email" placeholder="{{ section.settings.placeholder }}" class="newsletter-field">
+                            <button class="nl-btn">{{ section.settings.svgbtn }}</button>
+                        </form>
+                    </div>
+                    <div class="social-media">
+                        <ul>
+                          	{%- for block1 in section.blocks -%}
+                              {%- if block1.type=='social' -%}
+                              <li>
+                                 {%- if block1.settings.sociallink != blank -%}<a href="{{block1.settings.sociallink}}">{{ block1.settings.social }}</a>{%- endif -%}
+                              </li>
+                              {%- endif -%}
+                          	{%- endfor -%}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--   <a class="twitter-timeline" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets - Curated tweets by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+</section>
+<script>
+ var feed = new Instafeed({
+    get: 'user',
+    userId: '1362124742', //Put The user id here..
+    accessToken: '1362124742.7b33a8d.6613a3567f0a425f9852055b8ef743b7', //Put The access token here..
+    limit: '4',
+    resolution: 'thumbnail',
+    template: '<div class="instagram-item"><a href="\{\{link\}\}" target="_blank"><img src="\{\{image\}\}\" alt="Instagram"><div class="insta-hover"><span class="icon"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 60.3 60.2" style="enable-background:new 0 0 60.3 60.2;" xml:space="preserve"><path class="st0" d="M50.2,16.1c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4s1.8-4,4-4C48.4,12.1,50.2,13.9,50.2,16.1" fill="#ffffff"/><path fill="#ffffff" class="st0" d="M31.2,16.1c-8.3,0-15,6.7-15,15s6.7,15,15,15c8.3,0,15-6.7,15-15S39.5,16.1,31.2,16.1 M31.2,40.9c-5.4,0-9.7-4.4-9.7-9.7c0-5.4,4.4-9.7,9.7-9.7c5.4,0,9.7,4.4,9.7,9.7C40.9,36.5,36.6,40.9,31.2,40.9"/><path fill="#ffffff" class="st0" d="M30.2,5.5c8,0,9,0,12.1,0.2c2.9,0.1,4.5,0.6,5.6,1c1.4,0.5,2.4,1.2,3.4,2.2c1,1,1.7,2,2.2,3.4c0.4,1.1,0.9,2.6,1,5.6c0.1,3.2,0.2,4.1,0.2,12.1s0,9-0.2,12.1c-0.1,2.9-0.6,4.5-1,5.6c-0.5,1.4-1.2,2.4-2.2,3.4c-1,1-2,1.7-3.4,2.2c-1.1,0.4-2.6,0.9-5.6,1c-3.2,0.1-4.1,0.2-12.1,0.2c-8,0-9,0-12.1-0.2c-2.9-0.1-4.5-0.6-5.6-1c-1.4-0.5-2.4-1.2-3.4-2.2c-1-1-1.7-2-2.2-3.4c-0.4-1.1-0.9-2.6-1-5.6c-0.1-3.2-0.2-4.1-0.2-12.1s0-9,0.2-12.1c0.1-2.9,0.6-4.5,1-5.6C7.3,11,8,10,9,9c1-1,2-1.7,3.4-2.2c1.1-0.4,2.6-0.9,5.6-1C21.2,5.6,22.2,5.5,30.2,5.5 M30.2,0.1c-8.1,0-9.2,0-12.4,0.2c-3.2,0.1-5.4,0.7-7.3,1.4c-2,0.8-3.6,1.8-5.3,3.5c-1.7,1.7-2.7,3.3-3.5,5.3c-0.7,1.9-1.2,4.1-1.4,7.3C0.2,21,0.2,22,0.2,30.1s0,9.2,0.2,12.4c0.1,3.2,0.7,5.4,1.4,7.3c0.8,2,1.8,3.6,3.5,5.3c1.7,1.7,3.3,2.7,5.3,3.5c1.9,0.7,4.1,1.2,7.3,1.4c3.2,0.1,4.2,0.2,12.4,0.2c8.1,0,9.2,0,12.4-0.2c3.2-0.1,5.4-0.7,7.3-1.4c2-0.8,3.6-1.8,5.3-3.5c1.7-1.7,2.7-3.3,3.5-5.3c0.7-1.9,1.2-4.1,1.4-7.3c0.1-3.2,0.2-4.2,0.2-12.4s0-9.2-0.2-12.4c-0.1-3.2-0.7-5.4-1.4-7.3c-0.8-2-1.8-3.6-3.5-5.3c-1.7-1.7-3.3-2.7-5.3-3.5c-1.9-0.7-4.1-1.2-7.3-1.4C39.4,0.2,38.3,0.1,30.2,0.1"/></svg></span></div><span class="meta-details">@fortressofinca</span></a></div>'
+  });
+  feed.run();
+</script>
+{% schema %}
+  {
+    "name": "News Latter",
+    "settings": [
+      {
+        "type":"text",
+        "id":"heading",
+        "label":"Heading",
+        "default":"Connect With Us"
+      },
+      {
+        "type":"textarea",
+        "id":"paragraph",
+        "label":"Text",
+        "default":"Stay up to date with the latest news on new arrivals, exclusive sales, event invites, and more."
+      },
+      {
+        "type":"text",
+        "id":"placeholder",
+        "label":"Placeholder",
+        "default":"Subscribe to Newsletter"
+      },
+      {
+        "type":"text",
+        "id":"svgbtn",
+        "label":"Svg Button"
+      }
+	],
+	"blocks":[
+		{
+			"type":"news-letter",
+			"name":"News Letter",
+			"settings":[
+				{
+					"type":"image_picker",
+					"id":"image",
+					"label":"select Image"
+				},
+				{
+					"type":"text",
+					"id":"svg",
+					"label":"Svg Image"
+				},
+				{
+					"type":"text",
+					"id":"svg-details",
+					"label":"Image Description",
+					"default":"@fortressofinca"
+				}
+			]
+		},
+		{
+			"type":"social",
+			"name":"Social Media",
+			"settings":[
+				{
+					"type":"text",
+					"id":"social",
+					"label":"Social Media Image"
+				},
+				{
+					"type":"text",
+					"id":"sociallink",
+					"label":"Social Media Link"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+          "name":"News Letter",
+          "category":"news letter"
+		}
+	]
+  }
+{% endschema %}

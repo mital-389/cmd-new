@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="account-section">
+    <div class="container">
+        <div class="col-row ai-s">
+            <div class="col-two">
+                <div class="sec-title">
+                    <h2>Sign In</h2>
+                </div>
+
+                <div class="user-form">
+                     {% form 'create_customer', id: formId, novalidate: 'novalidate' %}
+                  		 {%- if form.errors -%}
+                          <div class="form-message form-message--error">
+                            <h2 class="h3 form-message__title " tabindex="-1" data-form-status>Error Occured</h2>
+                            {{ form.errors | default_errors }}
+                          </div>
+                      {%- endif -%}
+                        <div class="col-row">
+                          	<div class="form-field col-full">
+                                <input type="text" label="Firat Name" name="customer[first_name]" id="{{ formId }}-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} label-color="#141819" bar-height='1px' active-color='#979797' class="input-field">
+                            </div>
+                          	<div class="form-field col-full">
+                                <input type="text" label="Last Name"  name="customer[last_name]" id="{{ formId }}-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} label-color="#141819" bar-height='1px' active-color='#979797' class="input-field">
+                            </div>
+                          	<div class="form-field col-full">
+                                <input type="email" label="Email"  name="customer[email]" id="{{ formId }}-LastName" {% if form.email %}value="{{ form.email }}"{% endif %} label-color="#141819" bar-height='1px' active-color='#979797' class="input-field">
+                            </div>
+                          	<div class="form-field col-full">
+                                <input type="text" label="Contact No"  name="customer[contact_no]" id="{{ formId }}-LastName" {% if form.contact_no %}value="{{ form.contact_no }}"{% endif %} label-color="#141819" bar-height='1px' active-color='#979797' class="input-field">
+                            </div>
+                            <div class="form-field col-full">
+                                <input type="password" label="Password" name="customer[password]" id="{{ formId }}-LastName" {% if form.password %}value="{{ form.password }}"{% endif %} label-color="#141819" bar-height='1px' active-color='#979797' class="input-field">
+                            </div>
+                        </div>
+                        <div class="submit-btn">
+                            <button type="submit" class="btn">Submit</button>
+                        </div>
+                  	{% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

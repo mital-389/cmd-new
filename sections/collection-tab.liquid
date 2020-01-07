@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="tab_wrapper demo">
+    <ul class="tab_list">
+      {% assign tabcollection = linklists[section.settings.collectionlink] %}
+        {%- for link in tabcollection.links -%}
+        	<li class="active">{{ link.title }}</li>
+        {%- endfor -%}
+    </ul>
+    <div class="content_wrapper">{%- for block in section.blocks -%}
+      <div class="tab_content active">
+        {% assign collection = collections[block.settings.tab-collection] %}
+        {%- for product in collection.products -%}
+          {%- for image in product.images -%}
+              <a href="{{ product.url }}">{{ image | img_url:'300x300' | img_tag }}</a>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Collection Tab",
+    "settings": [	
+      {
+        "type":"link_list",
+        "id":"collectionlink",
+        "label":"Choose Link"
+      }
+	],
+	"blocks":[
+		{
+			"type":"tab-collection",
+			"name":"Tab Collection",
+			"settings":[
+				{
+					"type":"collection",
+					"id":"tab-collection",
+					"label":"Choose Collection"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+			"name":"Tab Collection",
+			"category":"collection"
+		}
+	]
+  }
+{% endschema %}

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section class="product-detail">
+      <div class="container">
+        <div class="col-row ai-s">
+          <div class="col-two1 slider">
+            {%- for image in product.images -%}
+            <div class="product-gallery">
+              <img class="image1" id="ProductPhotoImg" src="{{ image | img_url: '200x200' }}" alt="{{ image.alt | escape }} data-zoom="{{ image.src | img_url: 'original', scale: 3 }}>
+            </div>
+            {%- endfor -%}
+          </div>
+          <div class="col-two1">
+            <div class="product-summery">
+              <form action="/cart/add" method="post" class="variants clearfix" >
+                <h1>{{ product.title }}</h1>
+                <h6 id = "price-preview" >{{ product.price | money }}</h6>
+                <div class="product-options">
+                  <div class="select clearfix"{% if hide_default_title %} style="display:none"{% endif %}>
+                    <select id="product-select" name="id">
+                      {% for variant in product.variants %}
+                      <option class='value' value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                      {% endfor %}
+                    </select>
+                    {% for option in product.options %}
+                    	{% include 'swatch' with option %}
+                    {% endfor %}
+                  </div>
+                </div>
+                {% for pp in collections.all.products %}
+                {% assign ppa=all_products[pp.handle] %}
+                {% assign prdhandle = ppa.handle %}
+                {% assign phandle = product.handle | split:'_' | first %}
+                {% if prdhandle contains phandle %}
+                {% for tg in pp.tags %}
+                {% assign tags = tg | split:'_' | last %}
+                {% assign tagsfirst = tg | split:'_' | first %}
+                {% if tagsfirst == phandle %}
+                	<li class="handle" style="background-color:{{ tags }}"><a href="{{ pp.handle }}" class="handle"></a></li>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+<!--                 <p class="size-chart-link"><a href="javascipt:void(0);" class="opensizechart">{{ section.settings.sizebottomtext }}</a></p> -->
+                <div class="add-cart-option">
+                  <div class="qty">
+                    <div class="qty">
+                      <label for="Quantity-{{ section.id }}">Select Quantity</label>
+                      <input class="selectoption" type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" class="justselect" pattern="[0-9]*" data-quantity-input>
+                    </div>
+                  </div>
+                  <div class="addtocart">
+                    <button type="submit" id="addcart">Add to Cart</button>
+                  </div>
+                </div>
+                <p>Free shipping. Free returns.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="size-chart">
+      <div class="close">
+        <button class="close-btn"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 31.4 31.2" style="enable-background:new 0 0 31.4 31.2;" xml:space="preserve"><rect x="13.7" y="-4.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)" width="4" height="40" fill="#000000"/><rect x="-4.3" y="13.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)" width="40" height="4" fill="#000000"/></svg></button>
+      </div>
+      <div class="size-chart-title">
+        <div class="sec-title">
+          <h2>Fit & Sizing</h2>
+          <p>This style tends to run a bit large. If you are in between sizes, we recommend sizing down. If you are a whole size, we recommend ordering your usual size. </p>
+        </div>
+      </div>
+    </div>
+ <script>
+//    $('.slider').slick({
+//      slidesToShow: 1,
+//      slidesToScroll: 1,
+//      arrows: true,
+//    });
+    jQuery(function(){
+    jQuery('.swatch :radio').change(function(){
+      var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+      var optionValue = jQuery(this).val();
+      jQuery(this)
+        .closest('form')
+        .find('.single-option-selector')
+        .eq(optionIndex)
+        .val(optionValue)
+        .trigger('change');
+    }); 
+  });
+   
+ var selectCallback = function(variant, selector) {
+   if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+     
+    if (variant && variant.featured_image) {
+      var newImage = variant.featured_image; // New image object.
+      var mainImageDomEl = jQuery('.product-gallery img')[0]; // DOM element of main image we need to swap.
+      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    }
+    
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      if(variant.price < variant.compare_at_price){
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + " <del>" + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+      } else {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+      }
+    } else {
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ?  "sold out" : "unavailable" ;
+      jQuery('#price-preview').html(message);
+    }                                 
+  };
+   jQuery(document).ready(function($){
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+    {% endif %}
+  });
+          function closepopup()
+          {
+            $('.quickviewpopup').fadeOut("slow"); 
+          }
+          $('#addcart').click(function(e){
+            var form=$(this).closest("form");
+            e.preventDefault();
+            $.ajax({
+              type:"GET",
+              url:"/cart/add.js",
+              data:form.serialize(),
+              dataType:"JSON"
+            }).done(function(data){
+              $.getJSON('/cart.js',function(cart){
+                $('.cart-count').text(cart.item_count);
+              });
+              closepopup();
+              console.log(data);
+            });
+          });
+  </script>
+  {{ 'shop.css' | asset_url | stylesheet_tag }}
+</body>
+</html>

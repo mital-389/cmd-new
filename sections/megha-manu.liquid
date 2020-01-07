@@ -1,0 +1,291 @@
+<div class="menu">
+<ul class="main-menu" role="navigation" id="AccessibleNav">
+      {% for link in linklists[section.settings.main_nav].links %}
+      {% assign child_list_handle = link.title | handleize %}
+
+      {% assign hasmega = false %}
+      {% for block in section.blocks %}
+      {% assign mmi = block.settings.menu_item | downcase | handle %}
+      {% assign li = link.title | downcase | handle %}
+      {% if li == mmi %}
+      {% assign hasmega = true %}
+      {% assign x = forloop.index %}
+      {% break %}
+      {% endif %}
+      {% endfor %}
+
+      {% if hasmega %}
+      {% assign x = x | minus: 1 %}
+      {% assign block = section.blocks[x] %} 
+      {% assign total_column = block.settings.columns %}
+      <li class="hasDropDown {% if link.active %}site-nav--active{% endif %} mega_menu" aria-haspopup="true" aria-expanded="false">
+        <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+        <div class="full-container">
+        <ul class="dropdownmenu column-{{ total_column }} megamenuWrap">
+          {% for i in (1..total_column) %}
+          {% capture col_type %}column_layout_{{ i }}{% endcapture %}
+          <li class="col_{{ block.settings[col_type] }}">
+            {% capture menu %}sub_menu_{{ i }}{% endcapture %}
+            {% capture img %}image_{{ i }}{% endcapture %}
+            {% capture title %}image_title_{{ i }}{% endcapture %}
+            {% capture links %}image_link_{{ i }}{% endcapture %}
+            {% capture img-text %}image_text_{{ i }}{% endcapture %}
+            {% capture menu-title-link %}menu_title_link_{{ i }}{% endcapture %}
+            {% assign m = block.settings[menu] %}
+            {% case block.settings[col_type] %}
+            {% when 'image_only' %}
+            <a {% if block.settings[links] != blank %}href="{{ block.settings[links] }}"{% endif %} >
+              <img src="{{ block.settings[img] | img_url: 'large' }}" alt="" />
+              {% if block.settings[img-text] != blank %}<h4>{{ block.settings[img-text] }}</h4>{% endif %}
+            </a>
+            {% when 'menu_only' %}
+            {% assign menu_url= linklists[m].url%}
+            <ul>
+              <li><a {% if block.settings[menu-title-link] != blank %}href="{{ block.settings[menu-title-link] }}"{% endif %}>{{linklists[m].title}}</a></li>
+              {% for l in linklists[m].links %}
+              <li>
+                <a href="{{ l.url }}">{{ l.title }}</a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% when 'menu_image' %}
+            <a {% if block.settings[links] != blank %}href="{{ block.settings[links] }}"{% endif %} >
+              <img src="{{ block.settings[img] | img_url: '200x' }}" alt="" />
+              {% if block.settings[img-text] != blank %}<h4>{{ block.settings[img-text] }}</h4>{% endif %}
+            </a>
+            <ul>
+              {% assign menu_url= linklists[m].url%}
+              <li><a {% if block.settings[menu-title-link] != blank %}href="{{ block.settings[menu-title-link] }}"{% endif %}>{{linklists[m].title}}</a></li>
+              {% if linklists[m].links %}
+              	{% for l in linklists[m].links %}
+              	<li>
+                	<a href="{{ l.url }}">{{ l.title }}</a>
+              	</li>
+              	{% endfor %}
+              {% endif %}
+            </ul>
+            {% endcase %}
+          </li>
+          {% endfor %}
+          </ul></div>
+      </li>
+      {% elsif linklists[child_list_handle].links != blank %}
+      <li class="hasDropDown hascol-1 {% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
+        <a href="{{ link.url }}" class="site-nav__link">
+          {{ link.title }}
+          <span class="icon-fallback-text">
+            <span class="icon icon-arrow-down" aria-hidden="true"></span>
+          </span>
+        </a>
+        <ul class="submenu">
+          {% for l in linklists[link.handle].links %}
+          <li><a href="{{ l.url }}">{{ l.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% else %}
+      <li class="{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
+        <a href="{{ link.url }}" class="site-nav__link">
+          {{ link.title }}
+          <span class="icon-fallback-text">
+            <span class="icon icon-arrow-down" aria-hidden="true"></span>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+</div>
+{% schema %}
+   {
+   "name": "Header",
+   "settings": [
+   {
+        "type": "link_list",
+        "id": "main_nav",
+        "label": "Menu",
+        "default":"main-menu"
+      }
+],
+    "blocks": [
+      {
+        "type": "mega_menu",
+        "name": "Mega menu",
+        "settings": [
+          {
+            "type": "text",
+            "id": "menu_item",
+            "label": "Menu Item"
+          },
+          {
+            "type": "select",
+            "id": "columns",
+            "options": [
+              { "value": "2", "label": "2 columns"},
+              { "value": "3", "label": "3 columns"},
+              { "value": "4", "label": "4 columns"}
+            ],
+            "label": "How many columns you want in megamenu?"
+          },
+		  {
+            "type": "header",
+            "content": "Menu item 1"
+          },
+          {
+            "type": "select",
+            "id": "column_layout_1",
+            "options": [
+            { "value": "menu_only", "label": "Only menu"},
+            { "value": "menu_image", "label": "Image with menu"},
+			{ "value": "image_only", "label": "Image only"}
+            ],
+            "label": "Select menu type"
+          },
+          {
+            "type":"image_picker",
+            "id":"image_1",
+            "label":"Choose Image for menu item 1"
+          },
+		  {
+            "type":"text",
+            "id":"image_text_1",
+            "label":"Set text below Image 1"
+          },
+		  {
+            "type":"text",
+            "id":"image_link_1",
+            "label":"Choose image link for menu item 1"
+          },
+          {
+            "type":"link_list",
+            "id":"sub_menu_1",
+            "label":"Choose menu for menu item 1"
+          },
+          {
+            "type":"text",
+            "id":"menu_title_link_1",
+            "label":"Choose Menu title link for menu item 1"
+          },
+		  {
+            "type": "header",
+            "content": "Menu item 2"
+          },
+          {
+            "type": "select",
+            "id": "column_layout_2",
+            "options": [
+            { "value": "menu_only", "label": "Only menu"},
+            { "value": "menu_image", "label": "Image with menu"},
+			{ "value": "image_only", "label": "Image only"}
+            ],
+            "label": "Select menu type"
+          },
+          {
+            "type":"image_picker",
+            "id":"image_2",
+            "label":"Choose Image for menu item 2"
+          }, 
+          { 
+            "type":"text",
+            "id":"image_text_2",
+            "label":"Set text below Image 2"
+          },
+		  {
+            "type":"text",
+            "id":"image_link_2",
+            "label":"Choose image link for menu item 2"
+          },
+          {
+            "type":"link_list",
+            "id":"sub_menu_2",
+            "label":"Choose menu for menu item 2"
+          },
+          {
+            "type":"text",
+            "id":"menu_title_link_2",
+            "label":"Choose Menu title link for menu item 2"
+          },
+		  {
+            "type": "header",
+            "content": "Menu item 3"
+          },
+          {
+            "type": "select",
+            "id": "column_layout_3",
+            "options": [
+            { "value": "menu_only", "label": "Only menu"},
+            { "value": "menu_image", "label": "Image with menu"},
+			{ "value": "image_only", "label": "Image only"}
+            ],
+            "label": "Select menu type"
+          },
+          {
+            "type":"image_picker",
+            "id":"image_3",
+            "label":"Choose Image for menu item 3"
+          },
+		  {
+            "type":"text",
+            "id":"image_text_3",
+            "label":"Set text below Image 3"
+          },
+		  {
+            "type":"text",
+            "id":"image_link_3",
+            "label":"Choose image link for menu item 3"
+          },
+          {
+            "type":"link_list",
+            "id":"sub_menu_3",
+            "label":"Choose menu for menu item 3"
+          },
+		  {
+            "type":"text",
+            "id":"menu_title_link_3",
+            "label":"Choose Menu title link for menu item 3"
+          },
+		  {
+            "type": "header",
+            "content": "Menu item 4"
+          },
+          {
+            "type": "select",
+            "id": "column_layout_4",
+            "options": [
+            { "value": "menu_only", "label": "Only menu"},
+            { "value": "menu_image", "label": "Image with menu"},
+			{ "value": "image_only", "label": "Image only"}
+            ],
+            "label": "Select menu type"
+          },
+          {
+            "type":"image_picker",
+            "id":"image_4",
+            "label":"Choose Image for menu item 4"
+          },
+		  {
+            "type":"text",
+            "id":"image_text_4",
+            "label":"Set text below Image 4"
+          },
+		  {
+            "type":"text",
+            "id":"image_link_4",
+            "label":"Choose image link for menu item 4"
+          },
+          {
+            "type":"link_list",
+            "id":"sub_menu_4",
+            "label":"Choose menu for menu item 4"
+          },
+          {
+            "type":"text",
+            "id":"menu_title_link_4",
+            "label":"Choose Menu title link for menu item 4"
+          }
+        ]
+      }
+    ]
+}
+
+{% endschema %}

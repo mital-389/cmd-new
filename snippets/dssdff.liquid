@@ -1,0 +1,76 @@
+ <div class="col-two">
+        <div class="product-summery">
+          {% form 'product', product ,data-product-form-redirect-url: '' %}
+          {% if product.title != blank %}
+          <h1>{{ product.title }}</h1>
+          {% endif %}
+          <h6 class="product-price">  {% if product.price != blank %} {{ product.price | money }}  {% endif %}</h6>
+          <p class="sold_out_msg"></p>
+          <div class="filterbysize" >
+            <div class="filter-sizes" style="display:flex; flex-wrap:wrap;">
+              <select id="product-select" name="id" style="display:none">
+                {% for variant in product.variants %}
+                <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku=" {% if variant.sku  != blank %}  {{ variant.sku }} {% endif %}">{{ variant.title }} - {{ variant.price | money }}</option>
+                {% endfor %}
+              </select>
+              {% if product.available and product.variants.size > 1 %}
+              {% for option in product.options %}
+              {% include 'swatch' with option %}
+              {% endfor %}
+              {% endif %}
+            </div>
+            <!--product tags. product show as a varient -->  
+            <div class="tagcolor">
+              <ul> 
+                {% for tag in product.tags %}
+                {% if tag contains "@" %}
+                <li ><a href="{{ tag  | remove:"@" }}" style="background-color:{{ tag  | remove:"@" }}">{{ tag  | remove:"@" }}</a></li>
+                {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <p class="size-chart-link"><a href="javascipt:void(0);" class="opensizechart">Size Guide</a></p>
+          <div style="display:flex; flex-wrap:wrap;">
+            <input id="quantity" type="number" name="quantity" value="1"  style="width:90px; height:61px;" /> 
+            <div class="add-cart-options">
+              <div class="add-to-cart">
+                {% if section.settings.button_text != blank %} 
+                <button type="submit" id="add-to-cart" class="btn">{{ section.settings.button_text }}</button>
+                {% endif %}
+                {% endform %}
+                <!--donation-->  
+                <button type="submit" id="add-to-cart2" class="donation">Donation</button>
+              </div>
+            </div>
+          </div>
+          {% assign prod = all_products['donation'] %}
+
+          {% form 'product', prod %}
+          {% assign productid = all_products['donation'].variants.first.id %}
+
+          <input type="hidden" id="product-select" name="id" value="{{ productid }}">
+          <input type="hidden" id="qty" name="quantity" value="1">
+          <button type="submit" id="add-to-cart3" class="btndonation" style="display:none">Donation</button>
+          {% endform %}
+          <!-- over donation -->
+          <p>Free shipping. Free returns.</p>
+          <div class="product-description">
+            <div class="desc rte">
+              {% if product.description != blank %} {{ product.description }} {% endif %}
+            </div>
+            <div class="product-faq">
+              {% if section.settings.text_id != blank %} 
+              <p><strong>{{ section.settings.text_id }}</strong></p>
+              {% endif %}
+              <div class="link-btn">
+                <a href="#">Email Us <span>➝</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+$(".donation").click(function(e){
+    e.preventDefault();
+    $(".btndonation").trigger("click");
+  });

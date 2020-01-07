@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="account-section">
+    <div class="container">
+        <div class="col-row ai-s">
+            <div class="col-four nav-sidebar">
+                <ul>
+                    <li><a href="{{ routes.account_url }}">My Account</a></li>
+                    <li class="active"><a href="{{ routes.account_url }}">Order History</a></li>
+                    <li><a href="{{ routes.account_addresses_url }}">Shipping Addresses</a></li>
+                    <li><a href="/account/logout">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="col-eight static-content order-history">
+                <h1 class="page-title">Order History</h1>
+
+                <div class="order-list">
+                    <table class="responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Payment Status</th>
+                            <th>Fulfillment Status</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {%- for order in customer.orders -%}
+                        <tr>
+                            <td data-label="Order">
+                                <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                            </td>
+                            <td data-label="Date">{{ order.created_at | date:"%Y-%m-%d %H:%M" }}</td>
+                            <td data-label="Payment Status">{{ order.financial_status_label }}</td>
+                            <td data-label="Fulfillment Status">{{ order.fulfillment_status_label }}</td>
+                            <td data-label="Total">{{ order.total_price | money }}</td>
+                        </tr>
+                          {%- endfor -%}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

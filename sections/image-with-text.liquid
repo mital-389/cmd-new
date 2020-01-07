@@ -1,0 +1,57 @@
+{%- if section.settings.mainimage != blank -%}
+  <section class="home-hero">
+      <div class="container">
+          <div class="hero-img">{{ section.settings.mainimage | img_url:'master' | img_tag }}</div>
+          <div class="hero-content">
+              <h2>{{ section.settings.imagehead }}</h2>
+              <div class="action">{% if section.settings.btnurl != blank %}{% if section.settings.btntext != blank %}<a href="{{ section.settings.btnurl }}" class="btn">{{ section.settings.btntext }}</a>{% endif %}{% endif %}</div>
+          </div>
+        <div class="mobileview">
+          <div></div>
+        </div>
+      </div>
+  </section>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Image With Text",
+    "settings": [
+		{
+			"type":"image_picker",
+			"id":"mainimage",
+			"label":"Image"
+		},
+		{
+			"type":"text",
+			"id":"imagehead",
+			"label":"Image Heading",
+			"default":"Summer  has Arrived."
+		},
+		{
+			"type":"text",
+			"id":"btntext",
+			"label":"Button Text",
+			"default":"Shop Collection"
+		},
+		{
+			"type":"url",
+			"id":"btnurl",
+			"label":"Button Url"
+		}
+	],
+	
+	"presets":[
+		{
+          "name":"Add My new section",
+          "category":"Custom section"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

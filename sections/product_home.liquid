@@ -1,0 +1,106 @@
+<section class="product-home">
+  <div class="container">
+    <div class="product-home-image">
+      {% for block in section.blocks %}
+      <form action="/cart/add" method="post" class="variants clearfix" >
+        {% assign product=all_products[block.settings.pr-home] %}
+        <div class="pr-image">{{ product | img_url:'500x500' | img_tag }}
+          <div class="select clearfix"style="display:none">
+            <select id="product-select-{{ product.id }}" name="id">
+              {% for variant in product.variants %}
+              <option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% for option in product.options %}
+          {% include 'swatch' with option %}
+          {% endfor %}
+          <div class="add-to-cart">
+            <button type="sumbit" id="addcart" name="add" class="addcart">Add To cart</button>
+          </div>
+        </div>
+        <script>
+          var selectCallback = function(variant, selector) {
+            if (variant) {
+              var form = jQuery('#' + selector.domIdPrefix).closest('form');
+              for (var i=0,length=variant.options.length; i<length; i++) {
+                var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+                alert(radioButton);
+                if (radioButton.size()) {
+                  radioButton.get(0).checked = true;
+                }
+              }
+            }                                 
+          };
+          jQuery(document).ready(function($){
+            new Shopify.OptionSelectors("product-select-{{ product.id }}", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+            // Add label if only one product option and it isn't 'Title'.
+            {% if product.options.size == 1 and product.options.first != 'Title' %}
+            $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+                                                 {% endif %}
+                                                 });
+        </script>
+      </form>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+   $(document).ready( function(){
+    function addcart(){
+        $.get('/cart/?view=mini',function(data){
+          $('#ajax').html(data);
+          $('#ajax').removeClass('loading');
+        });
+      }
+  $('#addcart').click(function(e){
+        var form=$(this).closest("form");
+        e.preventDefault();
+        $.ajax({
+          type:"GET",
+          url:"/cart/add.js",
+          data:form.serialize(),
+          dataType:"JSON"
+        }).done(function(data){
+          $.getJSON('/cart.js',function(cart){
+
+            if(typeof window.BOLD !== 'undefined'
+               && typeof window.BOLD.common !== 'undefined'
+               && typeof window.BOLD.common.cartDoctor !== 'undefined') {
+              // NOTE: "cart" should be the variable containing the cart json data
+              cart = window.BOLD.common.cartDoctor.fix(cart);
+            }
+
+            $('.cart-count').text(cart.item_count);
+          });
+          addcart();
+          console.log(data);
+        });
+      });
+      });
+</script>
+{% schema %}
+  {
+    "name": "Product on Home Page",
+    "settings": [],
+	"blocks":[
+		{
+			"type":"product",
+			"name":"Product on home page",
+			"settings":[
+				{
+					"type":"product",
+					"id":"pr-home",
+					"label":"Select Product"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+			"name":"Select your Product",
+			"category":"product"
+		}
+	]
+  }
+{% endschema %}

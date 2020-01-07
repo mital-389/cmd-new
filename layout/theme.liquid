@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>My Account - Fortress of Inca</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="theme-color" content="#75231a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="google" value="notranslate">
+    <meta name="description" content="">
+    <meta name="author" content="cirkle-studio">
+    {{ 'jquery.polymer-form.min.css' | asset_url | stylesheet_tag }}
+    {{ 'style_tab.css' | asset_url | stylesheet_tag }}
+    {{ 'api.jquery.js' | shopify_asset_url | script_tag }}
+    {{ 'jquery.polymer-form.min.css' | asset_url | stylesheet_tag }}
+    {{ 'style.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'jquery-2.2.4.min.js' | asset_url | script_tag }}
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    {{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js' | script_tag }}
+    {{ 'jquery.masonry.min.js' | asset_url | script_tag }}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+    {{ 'https://use.fontawesome.com/releases/v5.8.2/css/all.css'| stylesheet_tag }}
+    {{ 'flipclock.css' | asset_url | stylesheet_tag }}
+    <title> Popup Box DIV </title>
+
+<!--     {{ 'paymentfont.scss.css' | asset_url | stylesheet_tag }} -->
+
+  </head>
+
+  {{ content_for_header }}
+  {% include 'bold-common' %}
+  {% include 'bold-ro-init' %}
+  
+  <body>
+    {% section 'header' %}
+    {{ content_for_layout }}
+    {% section 'count-down' %}
+<!--     {% include 'shopifyexplorer-countdown-timer',title: "Special Offer End In",end_date: "Nov 1, 2019 11:39" %} -->
+    {% section 'footer' %}
+    {{ 'slick.js' | asset_url | script_tag }}
+    {{ 'fortressofinca.js' | asset_url | script_tag }}
+    {{ 'jquery.polymer-form.min.js' | asset_url | script_tag }}
+    {{ 'flipclock.js' | asset_url | script_tag }}
+    {% include "arp" %}
+    {% include 'linked-options' %}
+    <div class="quickviewpopup openpopup" id="quickview">
+      <div class="svgclose" id="popupBoxClosebutton">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 16.538l-4.592-4.548 4.546-4.587-1.416-1.403-4.545 4.589-4.588-4.543-1.405 1.405 4.593 4.552-4.547 4.592 1.405 1.405 4.555-4.596 4.591 4.55 1.403-1.416z"/></svg>
+      </div>
+      <div id="view">
+        {% section 'quickview' %}
+      </div>
+    </div>
+    <div>
+    <div id="overlay"></div>
+    <div id="desc_popup">
+      <div id="popup-view">
+      	{% section 'desc_popup' %}
+      </div>
+    </div>
+    <div id="ajax" >
+      {% include 'mini-model' %}
+    </div>
+    <script>
+//=============================================================
+      
+      jQuery(function() {
+        jQuery('.swatch :radio').change(function() {
+          var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+          var optionValue = jQuery(this).val();
+          jQuery(this)
+          .closest('form')
+          .find('.single-option-selector')
+          .eq(optionIndex)
+          .val(optionValue)
+          .trigger('change');
+          var value=jQuery(this).closest(".swatch-element").attr("data-count");
+          if(value <= 4){
+          	var msg=jQuery(this).closest(".header-Size").closest(".variant-inventory");
+            $(".variant-inventory").html("only "+value+" pairs left");
+          }
+          else{
+          	jQuery(".variant-inventory").empty();
+          }
+        });
+      });
+      
+      //     var token = '1362124742.7b33a8d.6613a3567f0a425f9852055b8ef743b7',
+      //     num_photos = 4;
+
+      // 	$.ajax({
+      // 	url: 'https://api.instagram.com/v1/users/self/media/recent',
+      // 	dataType: 'jsonp',
+      // 	type: 'GET',
+      // 	data: {access_token: token, count: num_photos},
+      // 	success: function(data){
+      //  		console.log(data);
+      // 		for( x in data.data ){
+      // 			$('.instagram-gallery').append('<div class="instagram-item"><img src="'+data.data[x].images.low_resolution.url+'"></div>');
+      // 		}
+      // 	},
+      // 	error: function(data){
+      // 		console.log(data);
+      // 	}
+      //});
+    </script>
+    {{ 'theme.js' | asset_url | script_tag }}
+    {{ 'custom.js' | asset_url | script_tag }}
+    {{ 'jquery.zoom.min.js' | asset_url | script_tag }}
+    {{ 'jquery.multipurpose_tabcontent.js' | asset_url | script_tag }}
+	{{ 'https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css' | stylesheet_tag }}
+	{{ '//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js' | script_tag }}
+	{{ 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js' | script_tag }}
+    {{ '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' | stylesheet_tag }}
+    {{ '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css' | stylesheet_tag }}
+    {{ 'quickview.scss.css' | asset_url | stylesheet_tag }}
+    {{ '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js' | script_tag }}
+    {{ 'quickview.js' | asset_url | script_tag }}
+    
+<script>
+  {% capture content %}{% include 'quickview' %}{% endcapture %}
+  var content = {{ content | json }};
+</script>
+<!--     <script>
+      $(document).on('change', '.swatch-element', function(){
+        if (BOLD && BOLD.recurring_orders && BOLD.recurring_orders.app && BOLD.recurring_orders.app.ee &&
+            typeof BOLD.recurring_orders.app.ee.emit === 'function'){
+          BOLD.recurring_orders.app.ee.emit('variant_changed');
+        }
+      }); 
+    </script> -->
+      {% include 'currencies' %}
+  </body>
+</html>
+  

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="account-section">
+    <div class="container">
+        <div class="col-row ai-s">
+            <div class="col-four nav-sidebar">
+                <ul>
+                    <li><a href="{{ routes.account_url }}">My Account</a></li>
+                    <li class="active"><a href="{{ routes.account_url }}">Order History</a></li>
+                    <li><a href="{{ routes.account_addresses_url }}">Shipping Addresses</a></li>
+                    <li><a href="/account/logout">Logout</a></li>
+                </ul>
+            </div>
+
+            <div class="col-eight static-content order-history">
+                <h1 class="page-title">{{ order.name }}</h1>
+                <h5 class="page-title-lower">{{ order.created_at | date:"%Y-%m-%d %H:%M" }}</h5>
+				<p><a href="/tools/checkout/api/manage/subscription/app" class="text-link">Manage Subscriptions</a></p>
+                <div class="order-list">
+                  {%- for order in customer.orders -%}
+                    <table class="responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+						
+                          <tr id="819015254079" class="responsive-table__row">
+                              <td data-label="Product">
+                                  <a href="{{ order.customer_url }}" title="">{{ order.name }}</a>
+                              </td>
+                           		{% assign current_variant = product.selected_or_first_available_variant %}
+                              <td data-label="SKU">{{ current_variant.sku }}</td>
+                              <td data-label="Price">{{ order.subtotal_price | money }}</td>
+                              <td data-label="Quantity">{{ line_item.quantity }}</td>
+                              <td data-label="Total">{{ order.total_price | money }}</td>
+                          </tr>
+						
+                        </tbody>
+                        <tfoot>
+                        <tr class="responsive-table__row">
+                            <td colspan="4">Subtotal</td>
+                            <td data-label="Subtotal">{{ order.subtotal_price | money }}</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">Shipping (Standard Shipping)</td>
+                            <td data-label="Shipping (Standard Shipping)">{{ order.shipping_price | money }}</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="4">Tax (CGST 12.5%)</td>
+                            <td data-label="Tax (CGST 12.5%)">{{ order.tax_price | money }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><strong>Total</strong></td>
+                            <td data-label="Total"><strong>{{ order.total_price | money }}</strong></td>
+                        </tr>
+                        </tfoot>
+                    </table><br><br>
+                  {%- endfor -%}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>
+<script>
+</script>

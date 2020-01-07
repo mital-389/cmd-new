@@ -1,0 +1,69 @@
+.polymer-form {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+    color: #141819;
+}
+
+.polymer-form input {
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+
+.polymer-form textarea {
+    width: 100%;
+    max-width: 100%;
+    height: 40px;
+    max-height: 40px;
+    font-size: 14px;
+    line-height: 40px;
+    border: none;
+    background: transparent;
+    padding: 0;
+
+}
+
+.polymer-form .bar {
+    width: 100%;
+    position: relative;
+}
+
+.polymer-form .bar-in {
+    width: 0;
+    -webkit-transition: width .2s ease-in-out;
+    transition: width .2s ease-in-out;
+    margin: 0 auto;
+}
+
+.polymer-form .bar-in.active {
+    width: 100%;
+}
+
+.polymer-form label.placeholder {
+    font-size: 14px;
+    color: #141819;
+    position: absolute;
+    top: -4px;
+    left: 0;
+    -webkit-transition: all .2s cubic-bezier(.63, 0, .55, .96);
+    transition: all .2s cubic-bezier(.63, 0, .55, .96);
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+    font-weight: 400;
+}
+
+.polymer-form.dirty label.placeholder {
+    left: 0;
+    -webkit-transform: translateY(-60%) scale(1);
+    -ms-transform: translateY(-60%) scale(1);
+    transform: translateY(-60%) scale(1);
+}
+
+.polymer-form input:focus, .polymer-form textarea:focus {
+    outline: none;
+}

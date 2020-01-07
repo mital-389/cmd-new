@@ -1,0 +1,50 @@
+<div class="container">
+  <ul class="tabbutton">
+    {%- for block in section.blocks -%}
+    {% assign collection = collections[block.settings.tab-collection] %}
+    <li><a href="#tab-content{{forloop.index0 }}" class="tabselect">{{collection.title}}</a></li>
+    {%- endfor -%}
+  </ul>
+  {%- for block in section.blocks -%}
+  {% assign collection1 = collections[block.settings.tab-collection] %}
+  <div id="tab-content{{ forloop.index0 }}" class="slider-tabs">
+    <div class="slider-tab-inner">
+      <div class="slider-tab">
+        {%- for product in collection1.products -%}
+          <div class="slider-tab-slide">
+            <a href="{{ product.url }}">{{ product | img_url:'300x300' | img_tag }}</a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+  {%- endfor -%}   
+</div>
+{% schema %}
+  {
+    "name": "Slider Collection",
+    "settings": [],
+	"blocks":[
+		{
+			"type":"tabcollection",
+			"name":"Collection Tab",
+			"settings":[
+				{
+					"type":"collection",
+					"id":"tab-collection",
+					"label":"Choose Collection"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+			"name":"Tab Collection",
+			"category":"collection"
+		}
+	]
+  }
+{% endschema %}
+<script>
+ 
+</script>

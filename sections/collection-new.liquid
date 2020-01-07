@@ -1,0 +1,79 @@
+<div class="container">
+  <header>
+    <div class="header-section">
+      <div class="logo">
+        {% if section.settings.image != blank %}{{ section.settings.image | img_url:'300x114' | img_tag }}{% endif %}
+      </div>
+      {% assign link = linklists[section.settings.headerlink] %}
+      <ul class="linklists">
+        {% for links in link.links %}
+        <li><a href="{{ link.url }}">{{ links.title }}</a></li>
+        {% endfor %}
+      </ul>
+      <div class="login">
+        <ul class="logintext">
+          <li>Login</li>
+        </ul>
+        <div class="cart">
+          <a href="/cart">{% if section.settings.cartimage != blank %}{{ section.settings.cartimage | img_url:'20x20' | img_tag }}</a><span>{{ cart.item_count }}</span>{% endif %}
+        </div>
+      </div>
+    </div>
+  </header>
+  <section>
+    <div class="collection-list">
+      {%- for product in collection.products -%}
+      {% assign title = product.title | split:'-' | first %}
+      {% assign titlenext = product.title | split:'-' | last %}
+      <div class="product-image" data-price={{ product.price }} data-image="{{ product.featured_image }}" data-title="{{ titlenext }}" data-variant-id="{% for variant in product.variants %}{{ variant.id }}{% endfor %}">
+        <a href="{{ product.url }}?view=desc_popup" class="linkcls"><img class="image-zoom" id="ProductPhotoImg" src="{{ product.featured_image| img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" data-zoom="{{ imagefeature.src | img_url: 'original', scale: 2 }}" data-zoom-src="{{ img_url }}">
+          <div class="desc">
+            <div class="first-title">{{ title }}</div>
+            <div class="second-title">{{ titlenext }}</div>
+            <div class="price">{{ product.price | money }}</div>
+          </div>
+        </a>
+        <button type="submit" class="btnclass" data-variant-id="{% for variant in product.variants %}{{ variant.id }}{% endfor %}" id="adddata">Select</button>
+      </div>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>
+<div id="overlay1">
+  <div class="cv-spinner">
+    <span class="spinner"></span>
+  </div>
+</div>
+<div id="addproduct-1">
+  <div class="product-container">
+    <div class="count">
+      <div class="grid"></div>
+      <div class="cartbutton">
+        <p class="product-price"></p>
+        <button type="submit" class="btnaddcart" disabled="disabled">Add to cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Demo",
+    "settings": [
+		{
+			"type":"image_picker",
+			"id":"image",
+			"label":"Choose image for logo"
+		},
+		{
+			"type":"image_picker",
+			"id":"cartimage",
+			"label":"Choose image for cart"
+		},
+		{
+			"type":"link_list",
+			"id":"headerlink",
+			"label":"choose link"
+		}
+	]
+  }
+{% endschema %}

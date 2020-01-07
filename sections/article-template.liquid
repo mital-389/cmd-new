@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section class="blog-section blog-detail">
+      <div class="container">
+        <div class="blog-inner-container">
+          <div class="blog-detail-head">
+            <h5 class="blog-date">{{ article.published_at | time_tag: format: 'date' }}</h5>
+            <h1 class="blog-title">{{ article.title }}</h1>
+          </div>
+          <div class="blog-image">{{ article.image.src | img_url:'master' | img_tag:'Blog' }}</div>
+          <div class="blog-description rte">
+            {{ article.content }}
+            <div class="blog-tags">
+              <span>Tags:</span> {%- if blog.tags != blank -%}{%- for tags in blog.tags -%}<a href="#">{{ tags }}{{', '}}</a>{%- endfor -%}{%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% assign blogarticletitle = article.title %}
+    <div class="blog-realted-posts">
+      <div class="container">
+        <div class="blog-inner-container">
+          <div class="sec-title">
+            <h3>Related Articles</h3>
+            <div class="link-btn"><a href="{{ blog.url }}"> Back to Blog <span>➝</span></a></div>
+          </div>
+          <div class="related-posts col-row ai-s">
+            {%- for article in blog.articles limit: 3 -%}
+            {%- if article.title != blogarticletitle -%}
+            <div class="related-post col-two">
+              <div class="related-image"><a href="{{ article.url }}">{{ article.image.src | img_url:'master' | img_tag }}</a></div>
+              <h4><a href="{{ article.url }}">{{ article.title }} </a></h4>
+            </div>
+            {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+    </div>
+<!--     {% capture all_the_tags %}{% for tag in article.tags %}{{ tag }}{% endfor %}{% endcapture %}
+    {% assign current = article.id %}
+    {% assign count = 0 %}
+    <script>
+      alert();
+      var articles = new Array();
+      {% for article in blog.articles %}
+      	{% unless article.id == current %}
+      		{% for tag in article.tags %}
+      			{% if all_the_tags contains tag %}
+      				{% if article.content contains 'src' %}
+      					{% assign article_img = article.content | split:'src="' %}
+      					{% assign article_img = article_img[1] | split:'"' %}
+      					{% assign article_img = article_img[0] %}
+      					{% capture article_img %}<img src='{{ article_img }}' alt='{{ shop.name | escape }} {{ article.title | escape }}' />{% endcapture %}
+      				{% else %}
+      					{% capture article_img %}<img src='{{ 'logo.png' | asset_url }}' alt="{{ shop.name }}" />{% endcapture %}
+      				{% endif %}
+      				articles[{{ count }}] = "<a href='{{ article.url }}'>{{ article_img | img_tag }}<br />{{ article.title | escape }}</a>";
+      				{% assign count = count | plus:1 %}
+      			{% endif %}
+      		{% endfor %}
+      	{% endunless %}
+      {% endfor %}
+      fisherYates(products);
+      for(var i=0;i<4;i++) {
+        document.write(articles[i]);	
+      }
+       function fisherYates ( myArray ){
+        var i = myArray.length,j,temp;
+        if (i === 0) return false;
+        while (--i) {
+          j = Math.floor(Math.random()*(i+1));
+          temp = myArray[i];
+          myArray[i] = myArray[j]; 
+          myArray[j] = temp;
+        }
+      }
+    </script> -->
+  </body>
+</html>

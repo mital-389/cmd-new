@@ -1,0 +1,73 @@
+<section class="share-email">
+  <div class="container">
+    <div class="main-popup">
+      <div class="main-share">
+        <div class="wrap">
+          <div class="email-text">
+            <span>Refer a Friend</span>
+          </div>
+          <div class="header">
+            <h1>GIVE&nbsp;$10, GET&nbsp;$10</h1>
+          </div>
+          <div class="sub-head">
+            <h2>Give friends $10 off their first order, and you'll get $10 when they make a purchase.</h2>
+          </div>
+          <div class="share-btn">
+            <ul>
+              <li>
+                <a href="javascript:void(0)" class="btn-mail">
+                  <span class="logo-mail"><img src="https://cdn.shopify.com/s/files/1/0253/9021/9348/files/mail.png?44146"></span>
+                  <span class="brn-text">Share Via Email</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right-mail">
+        <div class="right-side">
+          <div class="right-head">
+            <h1>SHARE VIA EMAIL</h1>
+          </div>
+          <div id="closebtn1"><i class="far fa-times-circle"></i></div>
+          <div class="form-row">
+            <label>Email will be sent from: mitald.cirklestudio@gmail.com</label>
+          </div>
+          <div class="form-row">
+            <label>To:</label>
+            <input type="text" placeholder="Enter your friends' emails separated by commas" maxlength="1000" class="textfield js-email-recipients">
+          </div>
+          <div class="form-row">
+            <label>Subjects:</label>
+            <input type="text"value="Your friend mahi sent you $10 off at Pique" maxlength="1000" class="textfield">
+          </div>
+          <div class="form-row">
+            <label>Note:</label>
+            <textarea type="text" placeholder="Your personal message goes here. Offer link will be inserted automatically." maxlength="1000" class="textfield"></textarea>
+          </div>
+          <div class="form-row is-last">
+            <input type="button" value="Send Email" maxlength="1000" class="button is-inline js-email-share-submit">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Share By Email",
+    "settings": [],
+	"presets":[
+		{
+			"name":"Share by email",
+			"category":"Share"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

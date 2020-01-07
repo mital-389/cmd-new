@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="contact-section">
+    <div class="container">
+        <div class="page-title">
+            <h2>{{ page.title }}</h2>
+            <div class="contact-info">
+                <p>503 West Mary St. <br>Austin, TX 78704</p>
+                <p>Monday – Saturday <br>11AM - 5PM</p>
+                <p>(512) 856-4622</p>
+            </div>
+            <div class="link-btn"><a href="#">Get Direction <span>&#10141;</span></a></div>
+        </div>
+        <div class="contact-area">
+            <h3>We’re looking forward to hearing from you.</h3>
+            <div class="contact-form">
+                {% form 'contact', id: formId %}
+              		 {% include 'form-status', form_id: formId %}
+                      <div class="col-row">
+                        <div class="form-field col-two">
+                            <select id="Inquiry Type" class="justselect">
+                                <option value="Inquiry Type" selected>Inquiry Type</option>
+                                <option value="2">Inquiry Type a</option>
+                                <option value="3">Inquiry Type b</option>
+                            </select>
+                        </div>
+                        <div class="form-field col-two">
+                          <input type="text" label="name" id="{{ formId }}-name" name="contact[name]" label-color="#141819" bar-height='1px' active-color='#979797' class="input-field" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                        </div>
+                        <div class="form-field col-two">
+                            <input type="email" label="Email" id="{{ formId }}-email" name="contact[email]" label-color="#141819" bar-height='1px' 
+                            active-color='#979797' 
+                            class="input-field"
+                            autocorrect="off"
+                			autocapitalize="off"
+                            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"  
+                            {%- if form.errors contains 'email' -%}
+                              class="input--error"
+                              aria-invalid="true"
+                              aria-describedby="{{ formId }}-email-error"
+                			{%- endif -%}>
+                        </div>
+                        <div class="form-field col-two">
+                            <input type="tel" label="Phone (Optional)" id="{{ formId }}-phone" name="contact[phone]" label-color="#141819" bar-height='1px' active-color='#979797' class="input-field" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+                        </div>
+                        <div class="form-field col-full">
+                            <textarea label="Message" wrap="off" label-color="#141819" bar-height='1px' active-color='#979797' class="input-field" id="{{ formId }}-message" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                        </div>
+                    </div>
+                      <div class="submit-btn">
+                          <button type="submit" class="btn">Submit</button>
+                      </div>
+                {% endform %}
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+  
+</html>

@@ -1,0 +1,47 @@
+<section class="home-collection collection-bottom">
+    <div class="container">
+        <div class="col-row">
+           	{%- for block in section.blocks -%}
+      		{%- assign collection = collections[block.settings.bottom-collection] -%}
+          {%- if block.settings.bottom-collection != blank -%}
+            <div class="col-two">
+                <a href="{{ collection.url }}">
+                    <div class="image">{{ collection.image | img_url:'master' | img_tag }}</div>
+                    <div class="content">
+                        <div class="inner-content">
+                            <h2>{{ collection.title }}</h2>
+                            <p>{{ collection.description }} </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+          {%- endif -%}
+          {%- endfor -%}
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Bottom Collection",
+    "settings": [],
+	"blocks":[
+		{
+			"type":"bottom-collection",
+			"name":"Bottom Collection",
+			"settings":[
+				{
+					"type":"collection",
+					"id":"bottom-collection",
+					"label":"Choose Collection"
+				}
+			]
+		}
+	],
+	"presets":[
+		{
+			"name":"Bottom Collection",
+			"category":"collection"
+		}
+	]
+  }
+{% endschema %}

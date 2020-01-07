@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{%- assign limit = 6 -%}
+{% paginate collection.products by limit %}
+  <section class="shop-list">
+      <div class="container">
+          <div class="filter-tools">
+              <div class="categoty-filter">
+                  <span class="dropdown-title">{{ section.settings.linkheading }}</span>
+                  <ul class="dropdown">
+                    {% assign link = linklists[section.settings.collectionlist] %}
+                    {%- for link in link.links -%}
+                      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                  <p class="total-items">{{ collection.all_products_count }} Items</p>
+              </div>
+              <div class="imageshow">
+                <div class="name">Collection Image</div>
+              </div>
+              <div class="mobile-view">
+               {% for block in section.blocks %}
+                  {% if block.type == 'mobileimage' %}
+                      {% assign collectionlist = collections[block.settings.mobilecollection] %}
+                      {% assign collection-image = block.settings.mobile-image %}
+                		{% if collectionlist != blank %}
+                          {% if collectionlist.handle == collection.handle %}
+                             {% if collection-image != blank %}{{ collection-image | img_url | img_tag }}{% else %}<div class="name">Collection Image</div>{% endif %}
+                          {% endif %}
+                		{% else %}
+                          <div class="name">Collection Image</div>
+                		{% endif %}
+                  {% endif %}
+               	 {% else %}
+                	<div class="name">Collection Image</div>
+               {% endfor %}
+              </div>
+              {% assign c = 0 %}
+              {%- for tag in collection.all_tags -%}
+                  {% capture cat %}{{ cat }}{% capture temp_cat %}{% if tag contains '_' %}{% assign cat_grp = tag | split: '_' %}{{ cat_grp.first }}{% endif %}{% endcapture %}{% unless cat contains temp_cat %}{% if tag contains '_' %}{% assign new_cat_grp = tag | split: '_' %}{{ new_cat_grp.first }}{% endif %}{% unless forloop.last %}+{% endunless %}{% assign c = c | plus: 1 %}{% endunless %}{% endcapture %}  
+            {%- endfor -%}
+            <input type="hidden" id="pageUrl" value="{{  }}">
+              <div class="filterbysize">
+                {% assign cat_array = cat | split: '+' %}
+                {% for i in cat_array %}
+                {% unless i == '' %}
+                <p>Filter by {{ i }}</p>
+                <div class="{{ i }}">
+                  <ul class="filter-{{ i }}">
+                    {% for tag in collection.all_tags %}
+                    {% assign tg = tag | split:'_' | last %}
+                    {% if tag contains i %}
+                      {% if current_tags contains tag %}
+                          <li class="active advanced-filter" data-group="features" data-handle="{{ tg }}">{{ tag | remove: i | remove: '_' | append: '&nbsp;x' | link_to_remove_tag: tag | replace: '<a', '<a class="my_filter"' }}</li>
+                      {% else %}
+                          <li class="refresh advanced-filter" data-group="features"  data-handle="{{ tg }}">{{ tag | remove: i | remove: '_' | link_to_add_tag: tag | replace: '<a', '<a class="my_filter"' }}</li>
+                      {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endunless %}
+                {% endfor %}
+              </div>
+          </div>
+          <div class="col-row filteroption">
+            {%- for product in collection.products -%}
+              <div class="col-three product-item">
+                  <div class="product-img">
+                      <a href="{{ shop.url }}/{{ collection.url }}/{{ product.url }}">{{ product.featured_image | img_url:'master' | img_tag }}</a>
+                      <div class="quick-shop">
+                          <a href="{{ product.url }}?view=quickview" class="quick-btn">{%- if section.settings.btntext != blank -%}{{ section.settings.btntext }}{%- endif -%}</a>
+<!--                         <div class="quick-view-button"><a class="quick-view" data-handle="{{ product.handle }}">Quick View</a></div> -->
+<!-- 							<div class="quick-view-button"><a class="quick-btn" data-handle="{{ product.handle }}" href="javascript:void(0);">Quick View</a></div> -->
+  <!--                         <div class="quick-sizes">
+                            {%- for option in product.options_with_values -%}
+                              {%- if option.name=='Size' -%}
+                                  {%- for option_val in option.values -%}
+                                      <a href="#">{{ option_val }}</a>
+                                  {%- endfor -%}
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </div> -->
+                      </div>
+                  </div>
+<!--                {% for variant in product.variants %}
+                	{% if variant.inventory_quantity == 0 %}
+                		
+                	{% endif %}
+                {% endfor %} -->
+                  <h2 class="product-meta">
+                      <span class="product-title"><a href="{{ product.url }}">{{ product.title }}</a><span class="price">{{ product.price | money }}</span></span>
+                       {%- for option in product.options_with_values -%}
+                          {% assign color_cnt = 0 %}
+                          {%- if option.name=='Color' -%}
+                              {% assign color_cnt = option.values | size %}
+                          {%- endif -%}
+                       {%- endfor -%}
+                        {%- if color_cnt > 0 -%}
+                          <span class="product-conf">{{ color_cnt }} Colors Available</span>
+                        {%- else -%}
+                          <span class="product-conf">Colors Not avalable</span>
+                        {%- endif -%}
+                  </h2>
+              </div>
+            {%- endfor -%}
+            <div class="number">
+              {% if paginate.next.is_link %}
+              	<a class="next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+              {% endif %}
+              {% assign count = paginate.pages %}
+              {% for part in (1..count) %}
+              	<li class='paginationnumber' {% if paginate.current_page == part %}class="active"{% endif %}><a href="{{ collection.url }}?page={{ forloop.index }}">{{ forloop.index }}</a></li>
+              {% endfor %}
+              {% if paginate.previous.is_link %}
+              <a class="prev" href="{{ paginate.previous.url }}">{{ paginate.previous.title }}</a>
+              {% endif %}
+            </div>
+          </div>
+      </div>
+  </section>
+{% endpaginate %}
+</body>
+</html>
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+		{
+            "type":"text",
+            "id":"linkheading",
+            "label":"Heading link",
+			"default":"Shop All"
+		},
+		{
+			"type":"link_list",
+			"id":"collectionlist",
+			"label":"Choose Link List"
+		},
+		{
+			"type":"text",
+			"id":"btntext",
+			"label":"Button Text",
+			"default":"+ Quick Shop"
+		}
+	],
+	"blocks":[
+		{
+          "type":"mobileimage",
+          "name":"Mobile Image",
+          "settings":[
+				{
+					"type":"collection",
+					"id":"mobilecollection",
+					"label":"Choose Collection"
+				},
+				{
+					"type":"image_picker",
+					"id":"mobile-image",
+					"label":"Choose Image"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}
+<!-- <script>
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+  jQuery('.coll-picker').change(function() {
+    if (jQuery(this).val()) {
+      location.href = '/collections/' + jQuery(this).val();
+    }
+    else {
+      location.href = '/collections/all';
+    }
+  });
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+    delete Shopify.queryParams.page;
+    var newTags = [];
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+        newTags.push(jQuery(this).val());
+      }
+    });
+    {% if collection.handle %}
+    var newURL = '/collections/{{ collection.handle }}';
+    if (newTags.length) {
+      newURL += '/' + newTags.join('+');
+    }
+    var search = jQuery.param(Shopify.queryParams);
+    if (search.length) {
+      newURL += '?' + search;
+    }
+    location.href = newURL;
+    {% else %}
+    if (newTags.length) {
+      Shopify.queryParams.constraint = newTags.join('+');
+    }
+    else {
+      delete Shopify.queryParams.constraint;
+    }
+    location.search = jQuery.param(Shopify.queryParams);
+    {% endif %}
+  });
+</script> -->
+<!-- <script>
+$(function () {
+  var popped = ('state' in window.history && window.history.state !== null),
+      initialURL = location.href;
+
+  //function to handle the scenarios where back and forward buttons used in browser
+  $(window).bind("popstate", function (e) {
+    // Ignore inital popstate that some browsers fire on page load
+    var initialPop = !popped && location.href == initialURL;
+    popped = true;
+    if (initialPop) {
+      return;
+    }
+    ajaxLoadPage(location.href);
+  });
+
+  //the ajax function that does the AJAX calls to get the products and load them into the grid
+  var ajaxLoadPage = function (url) {
+    $.ajax({
+      type: 'GET',
+      url: url,
+      data: {},
+      complete: function (data) {
+        $('#collection').html($("#collection", data.responseText).html());
+        history.pushState({
+          page: url
+        }, url, url);
+      }
+      console.log(data.response);
+    });
+  }
+
+  {% capture pathUrl %}{% if collection.handle %}{% capture url %}/collections/{{ collection.handle }}{% endcapture %}{{ url }}{% elsif collection.all_products_count > 0 and collection.products.first.type == collection.title %}{{ link_to_type }}{% elsif collection.all_products_count > 0 and collection.products.first.vendor == collection.title %}{{ link_to_vendor }}{% endif %}{% endcapture %}  
+
+  var collectionUrl = window.location.protocol+'//'+window.location.hostname+'{{ pathUrl}}';    
+
+        //this detects one of the filters being clicked that should then 
+        //decide what URL to call in order to get the newly filtered product grid
+        $(".color ul li a, .Gender ul li a, .size ul li a").click(function (event) {
+          event.preventDefault();
+          var title = $(this).attr('title');
+          var self = this;
+
+
+          // check if the click is on a "remove tag" filter
+          var isRemoveFilter = false;
+          if ($(this).parent().hasClass('active')) {
+            $(this).parent().removeClass('active');
+            $(this).removeAttr('title');
+            isRemoveFilter = true;
+          } else if ($(this).parent().hasClass("all")) {
+            //check if "all brands" or "all colors" clicked
+            var ul = $(this).parent().parent();
+            $('li', ul).removeClass('active');
+            $('li a', ul).removeAttr('title');
+            isRemoveFilter = true;
+          } else {
+            //otherwise it means click on an unfiltered tag
+            //remove other "Remove tag" in same filter row
+            var ul = $(this).parent().parent();
+            $('li', ul).removeClass('active');
+            $('li a', ul).removeAttr('title');
+
+            //add the active tag onto the new filter that was clicked
+            $(this).parent().addClass('active');
+            $(this).attr('title', 'Remove tag ' + $(this).text());
+          }
+
+          var activeColor = '';
+          if ($('.color ul li a.active a').length > 0) {
+            activeBrand = $('.color ul li.active a').text();
+          }
+          var activeGender = '';
+          if ($('.Gender ul li a').length > 0) {
+            activeColor = $('.Gender ul li.active a').text();
+          }
+          var activeSize = '';
+          if ($('.size ul li a').length > 0) {
+            activeColor = $('.size ul li.active a').text();
+          }
+
+          var selectedBrand = '';
+          if ($(this).parents().hasClass('brands') && !isRemoveFilter) {
+            selectedBrand = $(this).text();
+          }
+          var selectedColor = '';
+          if ($(this).parents().hasClass('colors') && !isRemoveFilter) {
+            selectedColor = $(this).text();
+          }
+
+          var url = $(this).attr('href');
+
+          var newBrand = selectedBrand || activeBrand;
+          var newColor = selectedColor || activeColor;
+          
+          url = collectionUrl + "/";
+
+          if (newBrand != '' && newColor != '') {
+            url += newBrand + "+" + newColor;
+          } else if (newColor != '') {
+            url += newColor;
+          } else if (newBrand != '') {
+            url += newBrand;
+          }
+
+          //console.log(url);	
+          ajaxLoadPage(url);
+        });
+    });
+  </script> -->

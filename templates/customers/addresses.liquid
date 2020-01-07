@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="account-section">
+    <div class="container">
+        <div class="col-row ai-s">
+            <div class="col-four nav-sidebar">
+                <ul>
+                    <li><a href="{{ routes.account_url }}">My Account</a></li>
+                    <li class="active"><a href="{{ routes.account_url }}">Order History</a></li>
+                    <li><a href="{{ routes.account_addresses_url }}">Shipping Addresses</a></li>
+                    <li><a href="/account/logout">Logout</a></li>
+                </ul>
+            </div>
+		
+            <div class="col-eight static-content address-page">
+                <h1 class="page-title">Shipping Addresses</h1>
+                <div class="shipping-address">
+                   {%- for address in customer.addresses -%}
+                    <div class="col-row ai-s">
+                        <div class="col-two">
+                            <h6><b>Address</b></h6>
+                            {{ address | format_address }}
+
+                        </div>
+                        <div class="col-two address-action text-right">
+                            <button  class="btn default" type="button" data-form-id="{{ form.id }}" >Make Default</button>
+                            <button  class="btn delete" type="button" data-target="{{ address.url }}" data-confirm-message="Are you sure delete??" >Delete</button>
+                        </div>
+                    </div>
+                    <hr>
+                 	{%- endfor -%}
+                    <div class="add-new-address">
+                        <div class="submit-btn text-left">
+                            <button class="btn add-new" type="button">Add New Address</button>
+                        </div>
+                        <div class="collapse" id="AddNewAddress">
+                            <div class="sec-title">
+                                <h3>Add New Shipping Address</h3>
+                            </div>
+                            {% form 'customer_address', customer.new_address %}
+                                <div class="col-row">
+                                    <div class="form-field col-two">
+                                        <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" class="input-field" label="First Name" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" class="input-field" label="Last Name" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-full">
+                                        <input type="text" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}" autocomplete="phone" class="input-field" label="Phone Number" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="street-address address-line1" class="input-field" label="Address 1" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <input type="text"  id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="street-address address-line2" class="input-field" label="Address 2" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <select id="AddressCountry_{{ form.id }}"  data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}" autocomplete="country" class="justselect input-field" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                            {{ all_country_option_tags }}
+                                        </select>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}" autocomplete="address-level1" class="justselect input-field" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                            <option selected="">State/Province</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" class="input-field" label="City" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-two">
+                                        <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code" class="input-field" label="Zipcode/Postcode" label-color="#141819" bar-height='1px' active-color='#979797'>
+                                    </div>
+                                    <div class="form-field col-full">
+                                        <span class="submit-btn text-right">
+                                            <button type="submit" class="btn">Submit</button>
+                                        </span>
+
+                                        <span class="cancel-btn">
+                                            <button type="cancel" class="btn cancel">Cancel</button>
+                                        </span>
+                                    </div>
+                                </div>
+                           {% endform %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
+{{ '//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.js' | script_tag }}
+<script>
+  $('.delete').on('click', function() {
+      var $el = $(this);
+      var target = $el.data('target');
+      var confirmMessage = $el.data('confirm-message');
+      if (
+        confirm(
+          confirmMessage || 'Are you sure you wish to delete this address?'
+        )
+      ) {
+        Shopify.postLink(target, {
+          parameters: { _method: 'delete' }
+        });
+      }
+    });
+  	$('.cancel').on('click', function() {
+      var isExpanded = $newAddressFormButton.attr('aria-expanded') === 'true';
+
+      $newAddressForm.toggleClass('hide');
+      $newAddressFormButton.attr('aria-expanded', !isExpanded).focus();
+    });
+  new Shopify.CountryProvinceSelector('AddressCountry_new', 'AddressProvince_new', {
+    hideElement: 'address_province_container_new'
+  });
+</script>

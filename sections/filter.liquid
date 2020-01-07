@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="filterby">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search">
+      {% comment %}
+      only product search
+      {% endcomment %}
+      <input type="hidden" name="type" value="product">
+      <input type="search"
+             id="SearchInput"
+             class="input-field"
+             name="q"
+             placeholder="Search Here..."
+             value="{{ search.terms | escape }}"
+             >
+      <div>
+        <div class="input-group__btn">
+          <button id="SearchResultSubmit" class="btnsearch" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+    {% if search.performed and search.results_count == 0 %}
+    <hr class="hr--small hr--invisible" aria-hidden="true" />
+    <div class="rte">
+      <p>Please try a different search term or go back to the homepage.</p>
+    </div>
+    {% endif %}
+    {% if search.performed and search.results_count >= 1 %}
+    {% for item in search.results %}
+    <li class="list-view-item">
+      {% if item.object_type == 'product' %}
+      	{% include 'product-search', product: item %}
+      {% else %}
+      <div class="product-card product-card--list">
+        <a href="{{ item.url }}" class="full-width-link">
+          <span class="visually-hidden">{{ item.title }}</span>
+        </a>
+        <div class="list-view-item__link">
+          {% if item.image %}
+          <div class="list-view-item__image-column">
+            <div class="list-view-item__image-wrapper product-card__image-wrapper">
+              <img class="list-view-item__image" src="{{ item.image.src | img_url: '600x600' }}" alt="{{ item.image.alt | escape }}">
+            </div>
+          </div>
+          {% endif %}
+          <div class="list-view-item__title-column">
+            <div class="list-view-item__title" aria-hidden="true">
+              <span class="product-card__title">{{ item.title }}</span>
+            </div>
+            <div>
+              {% if item.published_at %}{{ item.published_at | date: format: "date" }} &#8212; {% endif %}
+              {{ item.content | strip_html | truncate: 200 }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </li>
+    {% endfor %}
+    {% endif %}
+  </div>
+</div>

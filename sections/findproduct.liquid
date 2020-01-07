@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="search">
+      <div class="gender">
+        {%- for link in linklists.filtergender.links -%}
+        	<span class="radiobtn"><input type="radio" name="gender" value="{{ link.title }}" id="radiobtn1"></span>{{ link.title }}
+        {%- endfor -%}
+      </div>
+      <div class="size">
+        <select id="findsize">
+          <option value='' >Select Size</option>
+          {%- for link1 in linklists.filtersize.links -%}
+          	<option value='{{ link1.title | replace:'.' , '-'}}'>{{ link1.title }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <div class="width">
+        <select id="findwidth">
+          <option value=''>Select Width</option>
+          {%- for link2 in linklists.filterwidth.links -%}
+          	<option value='{{ link2.title | replace:' ' , '-' }}'>{{ link2.title }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <input type="submit" value="Find Your Product" class="btnsearch">
+    	<span class="error"></span>
+  </div>
+  <div class="continous-loop">
+    <button type="submit" id='loopingbtn'>Click</button>
+    <div class='numbers'></div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Find Product",
+    "settings": [],
+	"presets":[
+		{
+			"name":"Find Product",
+			"category":"product"
+		}
+	]
+  }
+{% endschema %}

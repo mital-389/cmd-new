@@ -1,0 +1,429 @@
+{
+  "current": {
+    "show_multiple_currencies": true,
+    "currency_format": "money_format",
+    "supported_currencies": "INR GBP CAD USD AUD EUR JPY",
+    "default_currency": "INR",
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#197bbd",
+    "checkout_button_color": "#197bbd",
+    "checkout_error_color": "#e32c2b",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "heading": "Fortress of Inca",
+          "mobilebar": "<svg version=\"1.1\" viewbox=\"0 0 40.1 32.4\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xml:space=\"preserve\"><rect x=\".1\" y=\".3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><rect x=\".1\" y=\"14.3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><rect x=\".1\" y=\"28.3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><\/svg>",
+          "mainimage": "shopify:\/\/shop_images\/black-logo.png",
+          "svglogo1": "",
+          "svgcart": "<svg version=\"1.1\" baseprofile=\"tiny\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 35.8 40\" overflow=\"scroll\" xml:space=\"preserve\"><path fill-rule=\"evenodd\" d=\"M34.2,39.9H1.6c-0.4,0-0.8-0.2-1-0.5c-0.3-0.3-0.4-0.7-0.4-1.1l2.2-28.3C2.4,9.4,3,8.9,3.8,8.9H11V7c0-3.8,3.1-6.8,6.8-6.8c3.8,0,6.8,3.1,6.8,6.8v1.8H32c0.7,0,1.4,0.6,1.4,1.3l2.2,28.3c0,0.4-0.1,0.8-0.4,1.1C35,39.8,34.6,39.9,34.2,39.9z M3.1,37.1h29.6l-2-25.4h-6v2.9c0,0.8-0.6,1.4-1.4,1.4c-0.8,0-1.4-0.6-1.4-1.4v-2.9h-8v2.9c0,0.8-0.6,1.4-1.4,1.4S11,15.4,11,14.6v-2.9h-6L3.1,37.1z M22.5,9h-9.3l0-1.9c0-2.6,2.1-4.7,4.7-4.7c2.6,0,4.7,2.1,4.7,4.7L22.5,9z\"><\/path><\/svg><span class=\"cart-count\"><\/span>",
+          "svgsearch": "<svg version=\"1.1\" baseprofile=\"tiny\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 39.9 39.9\" overflow=\"scroll\" xml:space=\"preserve\"><path fill=\"#090505\" d=\"M26.7,26.7c-5.2,5.2-13.7,5.2-18.9,0C2.6,21.4,2.6,13,7.8,7.8c5.2-5.2,13.7-5.2,18.9,0C31.9,13,31.9,21.4,26.7,26.7z M30.6,27.9c5.5-6.8,4.9-16.7-1.3-22.9c-6.5-6.5-17-6.7-23.8-0.4c-6.8,6.3-7.3,16.8-1.3,23.8c6,7,16.5,8,23.7,2.2l9.2,9.3l2.7-2.7L30.6,27.9z\"><\/path><\/svg>",
+          "svgbar": "<svg version=\"1.1\" viewbox=\"0 0 40.1 32.4\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xml:space=\"preserve\"><rect x=\".1\" y=\".3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><rect x=\".1\" y=\"14.3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><rect x=\".1\" y=\"28.3\" width=\"40\" height=\"4\" fill=\"#00000\"><\/rect><\/svg>",
+          "closebtn": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 31.4 31.2\" style=\"enable-background:new 0 0 31.4 31.2;\" xml:space=\"preserve\"><rect x=\"13.7\" y=\"-4.3\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)\" width=\"4\" height=\"40\" fill=\"#000000\"><\/rect><rect x=\"-4.3\" y=\"13.7\" transform=\"matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)\" width=\"40\" height=\"4\" fill=\"#000000\"><\/rect><\/svg>",
+          "searchheading": "Search Fortress of Inca",
+          "searchplaceholder": "Search..."
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "1563453992376": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 612 612\" style=\"enable-background:new 0 0 612 612;\" width=\"512px\" height=\"512px\" xml:space=\"preserve\"> <g> <g> <path d=\"M612,116.258c-22.525,9.981-46.694,16.75-72.088,19.772c25.929-15.527,45.777-40.155,55.184-69.411 c-24.322,14.379-51.169,24.82-79.775,30.48c-22.907-24.437-55.49-39.658-91.63-39.658c-69.334,0-125.551,56.217-125.551,125.513 c0,9.828,1.109,19.427,3.251,28.606C197.065,206.32,104.556,156.337,42.641,80.386c-10.823,18.51-16.98,40.078-16.98,63.101 c0,43.559,22.181,81.993,55.835,104.479c-20.575-0.688-39.926-6.348-56.867-15.756v1.568c0,60.806,43.291,111.554,100.693,123.104 c-10.517,2.83-21.607,4.398-33.08,4.398c-8.107,0-15.947-0.803-23.634-2.333c15.985,49.907,62.336,86.199,117.253,87.194 c-42.947,33.654-97.099,53.655-155.916,53.655c-10.134,0-20.116-0.612-29.944-1.721c55.567,35.681,121.536,56.485,192.438,56.485 c230.948,0,357.188-191.291,357.188-357.188l-0.421-16.253C573.872,163.526,595.211,141.422,612,116.258z\" fill=\"#464646\"><\/path> <\/g> <\/g> <g> <\/g><\/svg>",
+              "social1": "https:\/\/twitter.com\/shopify"
+            }
+          },
+          "1563256902753": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" width=\"512px\" height=\"512px\" viewbox=\"0 0 470.513 470.513\" style=\"enable-background:new 0 0 470.513 470.513;\" xml:space=\"preserve\"> <g> <path d=\"M271.521,154.17v-40.541c0-6.086,0.28-10.8,0.849-14.13c0.567-3.335,1.857-6.615,3.859-9.853 c1.999-3.236,5.236-5.47,9.706-6.708c4.476-1.24,10.424-1.858,17.85-1.858h40.539V0h-64.809c-37.5,0-64.433,8.897-80.803,26.691 c-16.368,17.798-24.551,44.014-24.551,78.658v48.82h-48.542v81.086h48.539v235.256h97.362V235.256h64.805l8.566-81.086H271.521z\" fill=\"#464646\"><\/path> <\/g><\/svg>",
+              "social1": "https:\/\/facebook.com\/shopify"
+            }
+          },
+          "1564232193953": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 486.392 486.392\" style=\"enable-background:new 0 0 486.392 486.392;\" width=\"512px\" height=\"512px\" xml:space=\"preserve\"> <g> <g> <g> <path d=\"M430.149,135.248C416.865,39.125,321.076-9.818,218.873,1.642 C138.071,10.701,57.512,76.03,54.168,169.447c-2.037,57.029,14.136,99.801,68.399,111.84 c23.499-41.586-7.569-50.676-12.433-80.802C90.222,77.367,252.16-6.718,336.975,79.313c58.732,59.583,20.033,242.77-74.57,223.71 c-90.621-18.179,44.383-164.005-27.937-192.611c-58.793-23.286-90.013,71.135-62.137,118.072 c-16.355,80.711-51.557,156.709-37.3,257.909c46.207-33.561,61.802-97.734,74.57-164.704 c23.225,14.136,35.659,28.758,65.268,31.038C384.064,361.207,445.136,243.713,430.149,135.248z\" fill=\"#464646\"><\/path> <\/g> <\/g><\/g><\/svg>",
+              "social1": "https:\/\/pinterest.com\/shopify"
+            }
+          }
+        },
+        "block_order": [
+          "1563453992376",
+          "1563256902753",
+          "1564232193953"
+        ],
+        "settings": {
+          "footerhead1": "Company",
+          "footerlink": "footermenu",
+          "footerhead2": "Customer Service",
+          "footerlink1": "footercol2",
+          "footerhead3": "Shop",
+          "footerlink2": "footercol3",
+          "copyright": "© 2018 FORTRESS OF INCA",
+          "footer": "Fortress of Inca",
+          "footerimage": "shopify:\/\/shop_images\/black-logo.png",
+          "heading": "Connect With Us",
+          "paragraph": "Stay up to date with the latest news on new arrivals, exclusive sales, event invites, and more.",
+          "placeholder": "Subscribe to Newsletter",
+          "svgbtn": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 36 10\" style=\"enable-background:new 0 0 36 10;\" xml:space=\"preserve\"><polygon class=\"st0\" points=\"28,6 0,6 0,4 28,4 28,0 36,5 28,10\" fill=\"#ffffff\"><\/polygon><\/svg>"
+        }
+      },
+      "1563013482527": {
+        "type": "image-with-text",
+        "settings": {
+          "mainimage": "shopify:\/\/shop_images\/carmen-black-cream.jpg",
+          "imagehead": "Summer  has Arrived.",
+          "btntext": "Shop Collection",
+          "btnurl": "shopify:\/\/collections\/all_product"
+        }
+      },
+      "1563174514181": {
+        "type": "bottom-collection",
+        "blocks": {
+          "1563174518521": {
+            "type": "bottom-collection",
+            "settings": {
+              "bottom-collection": "a-summer-collection"
+            }
+          },
+          "1563175121796": {
+            "type": "bottom-collection",
+            "settings": {
+              "bottom-collection": "our-mission"
+            }
+          }
+        },
+        "block_order": [
+          "1563174518521",
+          "1563175121796"
+        ],
+        "settings": {}
+      },
+      "1563185233299": {
+        "type": "news-letter1",
+        "blocks": {
+          "1563185266373": {
+            "type": "news-letter",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/instagram-1.jpg",
+              "svg": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 60.3 60.2\" style=\"enable-background:new 0 0 60.3 60.2;\" xml:space=\"preserve\"><path class=\"st0\" d=\"M50.2,16.1c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4s1.8-4,4-4C48.4,12.1,50.2,13.9,50.2,16.1\" fill=\"#ffffff\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M31.2,16.1c-8.3,0-15,6.7-15,15s6.7,15,15,15c8.3,0,15-6.7,15-15S39.5,16.1,31.2,16.1 M31.2,40.9c-5.4,0-9.7-4.4-9.7-9.7c0-5.4,4.4-9.7,9.7-9.7c5.4,0,9.7,4.4,9.7,9.7C40.9,36.5,36.6,40.9,31.2,40.9\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M30.2,5.5c8,0,9,0,12.1,0.2c2.9,0.1,4.5,0.6,5.6,1c1.4,0.5,2.4,1.2,3.4,2.2c1,1,1.7,2,2.2,3.4c0.4,1.1,0.9,2.6,1,5.6c0.1,3.2,0.2,4.1,0.2,12.1s0,9-0.2,12.1c-0.1,2.9-0.6,4.5-1,5.6c-0.5,1.4-1.2,2.4-2.2,3.4c-1,1-2,1.7-3.4,2.2c-1.1,0.4-2.6,0.9-5.6,1c-3.2,0.1-4.1,0.2-12.1,0.2c-8,0-9,0-12.1-0.2c-2.9-0.1-4.5-0.6-5.6-1c-1.4-0.5-2.4-1.2-3.4-2.2c-1-1-1.7-2-2.2-3.4c-0.4-1.1-0.9-2.6-1-5.6c-0.1-3.2-0.2-4.1-0.2-12.1s0-9,0.2-12.1c0.1-2.9,0.6-4.5,1-5.6C7.3,11,8,10,9,9c1-1,2-1.7,3.4-2.2c1.1-0.4,2.6-0.9,5.6-1C21.2,5.6,22.2,5.5,30.2,5.5 M30.2,0.1c-8.1,0-9.2,0-12.4,0.2c-3.2,0.1-5.4,0.7-7.3,1.4c-2,0.8-3.6,1.8-5.3,3.5c-1.7,1.7-2.7,3.3-3.5,5.3c-0.7,1.9-1.2,4.1-1.4,7.3C0.2,21,0.2,22,0.2,30.1s0,9.2,0.2,12.4c0.1,3.2,0.7,5.4,1.4,7.3c0.8,2,1.8,3.6,3.5,5.3c1.7,1.7,3.3,2.7,5.3,3.5c1.9,0.7,4.1,1.2,7.3,1.4c3.2,0.1,4.2,0.2,12.4,0.2c8.1,0,9.2,0,12.4-0.2c3.2-0.1,5.4-0.7,7.3-1.4c2-0.8,3.6-1.8,5.3-3.5c1.7-1.7,2.7-3.3,3.5-5.3c0.7-1.9,1.2-4.1,1.4-7.3c0.1-3.2,0.2-4.2,0.2-12.4s0-9.2-0.2-12.4c-0.1-3.2-0.7-5.4-1.4-7.3c-0.8-2-1.8-3.6-3.5-5.3c-1.7-1.7-3.3-2.7-5.3-3.5c-1.9-0.7-4.1-1.2-7.3-1.4C39.4,0.2,38.3,0.1,30.2,0.1\"><\/path><\/svg>",
+              "svg-details": "@fortressofinca"
+            }
+          },
+          "1563185307940": {
+            "type": "news-letter",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/instagram-2.jpg",
+              "svg": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 60.3 60.2\" style=\"enable-background:new 0 0 60.3 60.2;\" xml:space=\"preserve\"><path class=\"st0\" d=\"M50.2,16.1c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4s1.8-4,4-4C48.4,12.1,50.2,13.9,50.2,16.1\" fill=\"#ffffff\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M31.2,16.1c-8.3,0-15,6.7-15,15s6.7,15,15,15c8.3,0,15-6.7,15-15S39.5,16.1,31.2,16.1 M31.2,40.9c-5.4,0-9.7-4.4-9.7-9.7c0-5.4,4.4-9.7,9.7-9.7c5.4,0,9.7,4.4,9.7,9.7C40.9,36.5,36.6,40.9,31.2,40.9\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M30.2,5.5c8,0,9,0,12.1,0.2c2.9,0.1,4.5,0.6,5.6,1c1.4,0.5,2.4,1.2,3.4,2.2c1,1,1.7,2,2.2,3.4c0.4,1.1,0.9,2.6,1,5.6c0.1,3.2,0.2,4.1,0.2,12.1s0,9-0.2,12.1c-0.1,2.9-0.6,4.5-1,5.6c-0.5,1.4-1.2,2.4-2.2,3.4c-1,1-2,1.7-3.4,2.2c-1.1,0.4-2.6,0.9-5.6,1c-3.2,0.1-4.1,0.2-12.1,0.2c-8,0-9,0-12.1-0.2c-2.9-0.1-4.5-0.6-5.6-1c-1.4-0.5-2.4-1.2-3.4-2.2c-1-1-1.7-2-2.2-3.4c-0.4-1.1-0.9-2.6-1-5.6c-0.1-3.2-0.2-4.1-0.2-12.1s0-9,0.2-12.1c0.1-2.9,0.6-4.5,1-5.6C7.3,11,8,10,9,9c1-1,2-1.7,3.4-2.2c1.1-0.4,2.6-0.9,5.6-1C21.2,5.6,22.2,5.5,30.2,5.5 M30.2,0.1c-8.1,0-9.2,0-12.4,0.2c-3.2,0.1-5.4,0.7-7.3,1.4c-2,0.8-3.6,1.8-5.3,3.5c-1.7,1.7-2.7,3.3-3.5,5.3c-0.7,1.9-1.2,4.1-1.4,7.3C0.2,21,0.2,22,0.2,30.1s0,9.2,0.2,12.4c0.1,3.2,0.7,5.4,1.4,7.3c0.8,2,1.8,3.6,3.5,5.3c1.7,1.7,3.3,2.7,5.3,3.5c1.9,0.7,4.1,1.2,7.3,1.4c3.2,0.1,4.2,0.2,12.4,0.2c8.1,0,9.2,0,12.4-0.2c3.2-0.1,5.4-0.7,7.3-1.4c2-0.8,3.6-1.8,5.3-3.5c1.7-1.7,2.7-3.3,3.5-5.3c0.7-1.9,1.2-4.1,1.4-7.3c0.1-3.2,0.2-4.2,0.2-12.4s0-9.2-0.2-12.4c-0.1-3.2-0.7-5.4-1.4-7.3c-0.8-2-1.8-3.6-3.5-5.3c-1.7-1.7-3.3-2.7-5.3-3.5c-1.9-0.7-4.1-1.2-7.3-1.4C39.4,0.2,38.3,0.1,30.2,0.1\"><\/path><\/svg>",
+              "svg-details": "@fortressofinca"
+            }
+          },
+          "1563185346428": {
+            "type": "news-letter",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/instagram-3.jpg",
+              "svg": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 60.3 60.2\" style=\"enable-background:new 0 0 60.3 60.2;\" xml:space=\"preserve\"><path class=\"st0\" d=\"M50.2,16.1c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4s1.8-4,4-4C48.4,12.1,50.2,13.9,50.2,16.1\" fill=\"#ffffff\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M31.2,16.1c-8.3,0-15,6.7-15,15s6.7,15,15,15c8.3,0,15-6.7,15-15S39.5,16.1,31.2,16.1 M31.2,40.9c-5.4,0-9.7-4.4-9.7-9.7c0-5.4,4.4-9.7,9.7-9.7c5.4,0,9.7,4.4,9.7,9.7C40.9,36.5,36.6,40.9,31.2,40.9\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M30.2,5.5c8,0,9,0,12.1,0.2c2.9,0.1,4.5,0.6,5.6,1c1.4,0.5,2.4,1.2,3.4,2.2c1,1,1.7,2,2.2,3.4c0.4,1.1,0.9,2.6,1,5.6c0.1,3.2,0.2,4.1,0.2,12.1s0,9-0.2,12.1c-0.1,2.9-0.6,4.5-1,5.6c-0.5,1.4-1.2,2.4-2.2,3.4c-1,1-2,1.7-3.4,2.2c-1.1,0.4-2.6,0.9-5.6,1c-3.2,0.1-4.1,0.2-12.1,0.2c-8,0-9,0-12.1-0.2c-2.9-0.1-4.5-0.6-5.6-1c-1.4-0.5-2.4-1.2-3.4-2.2c-1-1-1.7-2-2.2-3.4c-0.4-1.1-0.9-2.6-1-5.6c-0.1-3.2-0.2-4.1-0.2-12.1s0-9,0.2-12.1c0.1-2.9,0.6-4.5,1-5.6C7.3,11,8,10,9,9c1-1,2-1.7,3.4-2.2c1.1-0.4,2.6-0.9,5.6-1C21.2,5.6,22.2,5.5,30.2,5.5 M30.2,0.1c-8.1,0-9.2,0-12.4,0.2c-3.2,0.1-5.4,0.7-7.3,1.4c-2,0.8-3.6,1.8-5.3,3.5c-1.7,1.7-2.7,3.3-3.5,5.3c-0.7,1.9-1.2,4.1-1.4,7.3C0.2,21,0.2,22,0.2,30.1s0,9.2,0.2,12.4c0.1,3.2,0.7,5.4,1.4,7.3c0.8,2,1.8,3.6,3.5,5.3c1.7,1.7,3.3,2.7,5.3,3.5c1.9,0.7,4.1,1.2,7.3,1.4c3.2,0.1,4.2,0.2,12.4,0.2c8.1,0,9.2,0,12.4-0.2c3.2-0.1,5.4-0.7,7.3-1.4c2-0.8,3.6-1.8,5.3-3.5c1.7-1.7,2.7-3.3,3.5-5.3c0.7-1.9,1.2-4.1,1.4-7.3c0.1-3.2,0.2-4.2,0.2-12.4s0-9.2-0.2-12.4c-0.1-3.2-0.7-5.4-1.4-7.3c-0.8-2-1.8-3.6-3.5-5.3c-1.7-1.7-3.3-2.7-5.3-3.5c-1.9-0.7-4.1-1.2-7.3-1.4C39.4,0.2,38.3,0.1,30.2,0.1\"><\/path><\/svg>",
+              "svg-details": "@fortressofinca"
+            }
+          },
+          "1563185362644": {
+            "type": "news-letter",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/instagram-4.jpg",
+              "svg": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 60.3 60.2\" style=\"enable-background:new 0 0 60.3 60.2;\" xml:space=\"preserve\"><path class=\"st0\" d=\"M50.2,16.1c0,2.2-1.8,4-4,4c-2.2,0-4-1.8-4-4s1.8-4,4-4C48.4,12.1,50.2,13.9,50.2,16.1\" fill=\"#ffffff\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M31.2,16.1c-8.3,0-15,6.7-15,15s6.7,15,15,15c8.3,0,15-6.7,15-15S39.5,16.1,31.2,16.1 M31.2,40.9c-5.4,0-9.7-4.4-9.7-9.7c0-5.4,4.4-9.7,9.7-9.7c5.4,0,9.7,4.4,9.7,9.7C40.9,36.5,36.6,40.9,31.2,40.9\"><\/path><path fill=\"#ffffff\" class=\"st0\" d=\"M30.2,5.5c8,0,9,0,12.1,0.2c2.9,0.1,4.5,0.6,5.6,1c1.4,0.5,2.4,1.2,3.4,2.2c1,1,1.7,2,2.2,3.4c0.4,1.1,0.9,2.6,1,5.6c0.1,3.2,0.2,4.1,0.2,12.1s0,9-0.2,12.1c-0.1,2.9-0.6,4.5-1,5.6c-0.5,1.4-1.2,2.4-2.2,3.4c-1,1-2,1.7-3.4,2.2c-1.1,0.4-2.6,0.9-5.6,1c-3.2,0.1-4.1,0.2-12.1,0.2c-8,0-9,0-12.1-0.2c-2.9-0.1-4.5-0.6-5.6-1c-1.4-0.5-2.4-1.2-3.4-2.2c-1-1-1.7-2-2.2-3.4c-0.4-1.1-0.9-2.6-1-5.6c-0.1-3.2-0.2-4.1-0.2-12.1s0-9,0.2-12.1c0.1-2.9,0.6-4.5,1-5.6C7.3,11,8,10,9,9c1-1,2-1.7,3.4-2.2c1.1-0.4,2.6-0.9,5.6-1C21.2,5.6,22.2,5.5,30.2,5.5 M30.2,0.1c-8.1,0-9.2,0-12.4,0.2c-3.2,0.1-5.4,0.7-7.3,1.4c-2,0.8-3.6,1.8-5.3,3.5c-1.7,1.7-2.7,3.3-3.5,5.3c-0.7,1.9-1.2,4.1-1.4,7.3C0.2,21,0.2,22,0.2,30.1s0,9.2,0.2,12.4c0.1,3.2,0.7,5.4,1.4,7.3c0.8,2,1.8,3.6,3.5,5.3c1.7,1.7,3.3,2.7,5.3,3.5c1.9,0.7,4.1,1.2,7.3,1.4c3.2,0.1,4.2,0.2,12.4,0.2c8.1,0,9.2,0,12.4-0.2c3.2-0.1,5.4-0.7,7.3-1.4c2-0.8,3.6-1.8,5.3-3.5c1.7-1.7,2.7-3.3,3.5-5.3c0.7-1.9,1.2-4.1,1.4-7.3c0.1-3.2,0.2-4.2,0.2-12.4s0-9.2-0.2-12.4c-0.1-3.2-0.7-5.4-1.4-7.3c-0.8-2-1.8-3.6-3.5-5.3c-1.7-1.7-3.3-2.7-5.3-3.5c-1.9-0.7-4.1-1.2-7.3-1.4C39.4,0.2,38.3,0.1,30.2,0.1\"><\/path><\/svg>",
+              "svg-details": "@fortressofinca"
+            }
+          },
+          "1563185993101": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 612 612\" style=\"enable-background:new 0 0 612 612;\" width=\"512px\" height=\"512px\" xml:space=\"preserve\"> <g> <g> <path d=\"M612,116.258c-22.525,9.981-46.694,16.75-72.088,19.772c25.929-15.527,45.777-40.155,55.184-69.411 c-24.322,14.379-51.169,24.82-79.775,30.48c-22.907-24.437-55.49-39.658-91.63-39.658c-69.334,0-125.551,56.217-125.551,125.513 c0,9.828,1.109,19.427,3.251,28.606C197.065,206.32,104.556,156.337,42.641,80.386c-10.823,18.51-16.98,40.078-16.98,63.101 c0,43.559,22.181,81.993,55.835,104.479c-20.575-0.688-39.926-6.348-56.867-15.756v1.568c0,60.806,43.291,111.554,100.693,123.104 c-10.517,2.83-21.607,4.398-33.08,4.398c-8.107,0-15.947-0.803-23.634-2.333c15.985,49.907,62.336,86.199,117.253,87.194 c-42.947,33.654-97.099,53.655-155.916,53.655c-10.134,0-20.116-0.612-29.944-1.721c55.567,35.681,121.536,56.485,192.438,56.485 c230.948,0,357.188-191.291,357.188-357.188l-0.421-16.253C573.872,163.526,595.211,141.422,612,116.258z\" fill=\"#464646\"><\/path> <\/g> <\/g> <g> <\/g><\/svg>",
+              "sociallink": "https:\/\/twitter.com\/shopify"
+            }
+          },
+          "1563186299415": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" width=\"512px\" height=\"512px\" viewbox=\"0 0 470.513 470.513\" style=\"enable-background:new 0 0 470.513 470.513;\" xml:space=\"preserve\"> <g> <path d=\"M271.521,154.17v-40.541c0-6.086,0.28-10.8,0.849-14.13c0.567-3.335,1.857-6.615,3.859-9.853 c1.999-3.236,5.236-5.47,9.706-6.708c4.476-1.24,10.424-1.858,17.85-1.858h40.539V0h-64.809c-37.5,0-64.433,8.897-80.803,26.691 c-16.368,17.798-24.551,44.014-24.551,78.658v48.82h-48.542v81.086h48.539v235.256h97.362V235.256h64.805l8.566-81.086H271.521z\" fill=\"#464646\"><\/path> <\/g><\/svg>",
+              "sociallink": "https:\/\/facebook.com\/shopify"
+            }
+          },
+          "1563186334998": {
+            "type": "social",
+            "settings": {
+              "social": "<svg xmlns=\"http:\/\/www.w3.org\/2000\/svg\" version=\"1.1\" id=\"Capa_1\" x=\"0px\" y=\"0px\" viewbox=\"0 0 486.392 486.392\" style=\"enable-background:new 0 0 486.392 486.392;\" width=\"512px\" height=\"512px\" xml:space=\"preserve\"> <g> <g> <g> <path d=\"M430.149,135.248C416.865,39.125,321.076-9.818,218.873,1.642 C138.071,10.701,57.512,76.03,54.168,169.447c-2.037,57.029,14.136,99.801,68.399,111.84 c23.499-41.586-7.569-50.676-12.433-80.802C90.222,77.367,252.16-6.718,336.975,79.313c58.732,59.583,20.033,242.77-74.57,223.71 c-90.621-18.179,44.383-164.005-27.937-192.611c-58.793-23.286-90.013,71.135-62.137,118.072 c-16.355,80.711-51.557,156.709-37.3,257.909c46.207-33.561,61.802-97.734,74.57-164.704 c23.225,14.136,35.659,28.758,65.268,31.038C384.064,361.207,445.136,243.713,430.149,135.248z\" fill=\"#464646\"><\/path> <\/g> <\/g><\/g><\/svg>",
+              "sociallink": "https:\/\/pinterest.com\/shopify"
+            }
+          }
+        },
+        "block_order": [
+          "1563185266373",
+          "1563185307940",
+          "1563185346428",
+          "1563185362644",
+          "1563185993101",
+          "1563186299415",
+          "1563186334998"
+        ],
+        "settings": {
+          "heading": "Connect With Us",
+          "paragraph": "Stay up to date with the latest news on new arrivals, exclusive sales, event invites, and more.",
+          "placeholder": "Subscribe to Newsletter",
+          "svgbtn": "<svg version=\"1.1\" id=\"Layer_1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" x=\"0px\" y=\"0px\" viewbox=\"0 0 36 10\" style=\"enable-background:new 0 0 36 10;\" xml:space=\"preserve\"><polygon class=\"st0\" points=\"28,6 0,6 0,4 28,4 28,0 36,5 28,10\" fill=\"#ffffff\"><\/polygon><\/svg>"
+        }
+      },
+      "1563189125140": {
+        "type": "slider",
+        "disabled": true,
+        "settings": {
+          "btntext": "Shop Now",
+          "arrow": "&#10141;",
+          "product": "",
+          "btnurl": "shopify:\/\/collections\/all_product"
+        }
+      },
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "linkheading": "Shop All",
+          "collectionlist": "collection-menu",
+          "btntext": "+ Quick Shop"
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "colorhead": "Caramel",
+          "sizebottomtext": "Size Guide",
+          "btntext": "Add to Bag",
+          "que": "Have a question about this product?",
+          "start_date": "2019-11-1  2:00 AM",
+          "end_date": "2019-11-4 7:00 AM"
+        }
+      },
+      "cart-template": {
+        "type": "cart-template",
+        "settings": {
+          "carthead": "Your shopping Cart",
+          "couponhead": "Coupon Code",
+          "coupondesc": "If you have a coupon code, enter it in the box below and click 'Go'.",
+          "btntext": "Go"
+        }
+      },
+      "product-recommendations": {
+        "type": "product-recommendations",
+        "settings": {
+          "show_related_products": false,
+          "related_title": "Stylist Picks",
+          "related_grid_num": "3",
+          "related_grid_row": "1"
+        }
+      },
+      "blog-template": {
+        "type": "blog-template",
+        "settings": {
+          "show_date": true,
+          "blog": "top-things-to-consider-when-buying-ankle-boots"
+        }
+      },
+      "article-template": {
+        "type": "article-template",
+        "settings": {}
+      },
+      "1564228575933": {
+        "type": "home_collection1",
+        "blocks": {
+          "1564228596535": {
+            "type": "home_collection",
+            "settings": {
+              "collectionimage1": "find-a-retailer",
+              "collection1text": "Find a Retailer"
+            }
+          },
+          "1564228584920": {
+            "type": "home_collection",
+            "settings": {
+              "collectionimage1": "shop-new-arrivals",
+              "collection1text": "Shop New Arrivals"
+            }
+          }
+        },
+        "block_order": [
+          "1564228596535",
+          "1564228584920"
+        ],
+        "settings": {}
+      },
+      "quickview": {
+        "type": "quickview",
+        "settings": {}
+      },
+      "tag_recommendation": {
+        "type": "tag_recommendation",
+        "settings": {
+          "show_related_products": true,
+          "related_title": "Other Related products",
+          "related_grid_num": "3",
+          "related_grid_row": "1"
+        }
+      },
+      "1566218406602": {
+        "type": "collection-tab",
+        "disabled": true,
+        "blocks": {
+          "1566218418520": {
+            "type": "tab-collection",
+            "settings": {
+              "tab-collection": "all_product"
+            }
+          },
+          "1566285384880": {
+            "type": "tab-collection",
+            "settings": {
+              "tab-collection": "swatches"
+            }
+          },
+          "1566285726373": {
+            "type": "tab-collection",
+            "settings": {
+              "tab-collection": "swatches"
+            }
+          },
+          "1566286057683": {
+            "type": "tab-collection",
+            "settings": {
+              "tab-collection": "shop-new-arrivals"
+            }
+          }
+        },
+        "block_order": [
+          "1566218418520",
+          "1566285384880",
+          "1566285726373",
+          "1566286057683"
+        ],
+        "settings": {
+          "collectionlink": "collectionnav"
+        }
+      },
+      "1566291872357": {
+        "type": "tab-collectionjs",
+        "disabled": true,
+        "blocks": {
+          "1566366674297": {
+            "type": "tabcollection",
+            "settings": {
+              "tab-collection": "all_product"
+            }
+          },
+          "1566291883488": {
+            "type": "tabcollection",
+            "settings": {
+              "tab-collection": "a-summer-collection"
+            }
+          },
+          "1566365195246": {
+            "type": "tabcollection",
+            "settings": {
+              "tab-collection": "all_product"
+            }
+          }
+        },
+        "block_order": [
+          "1566366674297",
+          "1566291883488",
+          "1566365195246"
+        ],
+        "settings": {}
+      },
+      "1568194746140": {
+        "type": "findproduct",
+        "settings": {}
+      },
+      "collection-new": {
+        "type": "collection-new",
+        "settings": {
+          "image": "shopify:\/\/shop_images\/Pique_Horizontal_Black_RGB_1_300x_logo.png",
+          "cartimage": "shopify:\/\/shop_images\/cart.png",
+          "headerlink": "demo-link"
+        }
+      },
+      "desc_popup": {
+        "type": "desc_popup",
+        "settings": {}
+      },
+      "1571640124910": {
+        "type": "share",
+        "disabled": true,
+        "settings": {}
+      },
+      "1571991729144": {
+        "type": "product_home",
+        "blocks": {
+          "1571991740790": {
+            "type": "product",
+            "settings": {
+              "pr-home": "shooze-grey"
+            }
+          },
+          "1571992333616": {
+            "type": "product",
+            "settings": {
+              "pr-home": "shooze-red"
+            }
+          },
+          "1571992343809": {
+            "type": "product",
+            "settings": {
+              "pr-home": "organic-sacred-lily-oolong"
+            }
+          },
+          "1571992351081": {
+            "type": "product",
+            "settings": {
+              "pr-home": "organic-ginger-digestion-elixir"
+            }
+          }
+        },
+        "block_order": [
+          "1571991740790",
+          "1571992333616",
+          "1571992343809",
+          "1571992351081"
+        ],
+        "settings": {}
+      },
+      "count-down": {
+        "type": "count-down",
+        "settings": {
+          "start_date": "",
+          "end_date": ""
+        }
+      }
+    },
+    "content_for_index": [
+      "1563013482527",
+      "1564228575933",
+      "1571991729144",
+      "1563189125140",
+      "1563174514181",
+      "1566218406602",
+      "1563185233299",
+      "1566291872357",
+      "1568194746140",
+      "1571640124910"
+    ]
+  }
+}

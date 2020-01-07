@@ -1,0 +1,156 @@
+{% include 'bold-cart' %}
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <section class="account-section">
+      <div class="container">
+        {%- if cart.item_count > 0 -%}
+        <form action="/cart" method="post">
+          <div class="col-row ai-s">
+            <div class="col-full">
+              <div class="sec-title">
+                <h2>{{ section.settings.carthead }}</h2>
+              </div>
+              <div class="cart-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th colspan="2">Cart items</th>
+                      <th class="item-qty">Qty</th>
+                      <th class="item-price">Item Price</th>
+                      <th class="item-total">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {%- for item in cart.items -%}
+                    {% include 'bold-cart-item' with item %}
+                    <tr>
+                      <td class="item-image" data-column="Product Image"><a href="{{ item.url }}"><img src="{{ item | img_url: 'master'}}"  alt="{{ item.title | escape }}" /></a></td>
+                      <td class="item-details" data-column="Item Details">
+                        <a href="{{ item.url }}" class="cart-item-name">{{ item.product.title }}</a>
+                        {%- for size in item.variant.title -%}
+                        	{% for option in item.product.options %}
+                        		{{ option }}: {{ item.variant.options[forloop.index0] }}<br/>
+                        	{% endfor %}
+                        {%- endfor -%}
+                        {% for property in item.properties %}
+                          {% if property contains 'Yes' %}
+                        	<h6>{{ property.first }}<h6>
+                          {% endif %}
+                        {% endfor %}
+                        <div class="item-actions">
+                          <a href="{{ item.url }}" class="change-item">Change</a>
+                          <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="remove-item">Remove</a>
+                        </div>
+                      </td>
+                      <td class="item-qty" data-column="Qty">
+                        <div class="cart__qty">
+                          <input class="justselect" type="number" name="updates[]" id="updates_{{ item.variant.id }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*">
+                        </div>
+                      </td>
+                         <td class="item-price" data-column="Item Price">
+                           {% for property in item.properties %}
+                           {% if property contains 'Yes' %}
+                           {{ bold_item_price | minus:bold_item_price | money }}
+                           {% else %}
+                           {{ bold_item_price | money }}
+                           {% endif %}
+                           {% endfor %}
+                      	</td>
+                      <td class="item-total" data-column="Total">
+                        {% for property in item.properties %}
+                          {% if property contains 'Yes' %}
+                        	{% assign savings = bold_item_line_price | minus:bold_item_line_price | times:item.quantity  %}
+                            {{ savings | money }}
+                        	{% assign total_saving = savings | times:item.quantity  %}
+                        	{% assign total_savings = total_saving | plus:bold_item_line_price  %}
+                          {% else %}
+                              {{ bold_item_line_price | money }}
+                          {% endif %}
+                        {% endfor %}
+                      </td>
+                    </tr>
+                    {%- endfor -%}
+                  </tbody>
+                </table>
+              </div>
+              <div class="subtotal-table">
+                <div class="couponcode">
+                  <h3>{{ section.settings.couponhead }}</h3>
+                  <p>{{ section.settings.coupondesc }}
+                  <div class="couponcode-form">
+                    <input type="text" name="discount" class="couponcode" class="Textbox"><button type="submit" class="btn" name="checkout">{{ section.settings.btntext }}</button>
+                  </div>
+                </div>
+                <div class="subtotal-box">
+                  <table>
+                    <tr>
+                      {%- if cart.cart_level_discount_applications != blank -%}
+                      <div class="order-discount-card-wrapper">
+                        {%- for discount_application in cart.cart_level_discount_applications -%}
+                        <span class="order-discount order-discount--title order-discount--cart">
+                          <td>{{- discount_application.title -}}: </td>
+                        </span>
+                        <th>-{{ discount_application.total_allocated_amount | money }}</th>
+                        {%- endfor -%}
+                      </div>
+                      {%- endif -%}
+                    </tr>
+                    <tr>
+                      <td>Subtotal: </td>
+                      <th>{{ bold_cart_total_price | minus:total_savings | money }}</th>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+              <div class="submit-btn">
+                <button type="submit" class="btn" name="update" >Update</button>
+              </div>
+              <div class="submit-btn text-right">
+                <button type="submit" class="btn" name="checkout">Procced to Checkout</button>
+                <input type="hidden" name="discount" value="Free" >
+              </div>
+            </div>
+          </div>
+        </form>
+        {%- else -%}
+        <div class="emptycart">
+          <p>There is not any Product in your Cart</p>
+          <a href="/"><button type="submit" class="cartbtn">Continue Shopping</button></a>
+        </div>
+        {%- endif -%}
+      </div>
+    </section>
+  </body>
+</html>
+{% schema %}
+{
+	"name": "Section name",
+	"settings": [
+		{
+			"type":"text",
+			"id":"carthead",
+			"label":"cart Heading",
+			"default":"Your shopping Cart"
+		},
+		{
+			"type":"text",
+			"id":"couponhead",
+			"label":"coupon Heading",
+			"default":"Coupon Code"
+		},
+		{
+			"type":"textarea",
+			"id":"coupondesc",
+			"label":"coupon description",
+            "default":"If you have a coupon code, enter it in the box below and click 'Go'."
+        },
+		{
+            "type":"text",
+            "id":"btntext",
+            "label":"Button Text",
+            "default":"Go"
+		}
+  	]
+}
+{% endschema %}

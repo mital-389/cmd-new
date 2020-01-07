@@ -1,0 +1,36 @@
+<div class="container">
+  {%- for link in linklists.footwareall.links -%}
+  {%- if link.links != blank -%}
+  <h1>{%- if link.active -%}{{ link.title }}{%- endif -%}</h1>
+  {%- endif -%}
+	{%- for childlink in link.links -%}
+  	{%- if childlink.links != blank -%}
+		{% assign linktitle = childlink.title %}
+		    {%- for collection in collections -%}
+				{%- if linktitle == collection.title -%}
+  					<div class="collectionlist">
+  						{%- if link.active -%}<a href="{{ childlink.url }}">{{ collection.image | img_url:'400x400' | img_tag }}</a>{%- endif -%}
+                      	<div>{%- if link.active -%}<h1>{{ childlink.title }}</h1>{%- endif -%}</div>
+					</div>
+				{%- endif -%}
+			{%- endfor -%}
+  	{%- endif -%}
+  			{%- if childlink.active -%}
+  				<h2>{{ childlink.title }}</h2>
+  				{%- for childlinklist in childlink.links -%}
+  				{%- if childlinklist != blank -%}
+  				{% assign linktitle1 = childlinklist.title %}
+  				{%- for collection in collections -%}
+  					{%- if linktitle1 == collection.handle -%}
+  					<div class="collectionlist">
+  							<a href="{{ childlinklist.url }}">{{ collection.image | img_url:'500x500' | img_tag }}</a>
+  							<div>{{ childlinklist.title }}</div>
+  					</div>
+                    {%- endif -%}  
+  				{%- endfor -%}
+  				{%- endif -%}
+  				{%- endfor -%}
+  			{%- endif -%}
+  		{%- endfor -%}
+  {%- endfor -%}
+</div>

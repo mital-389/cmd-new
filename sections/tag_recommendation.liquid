@@ -1,0 +1,104 @@
+{%- if section.settings.show_related_products == true -%}
+{% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+{% assign heading = section.settings.related_title %}
+{% assign current_product = product %}
+{% case number_of_related_products_per_row %}
+{% when '1' %}
+{% assign grid_item_width = '' %}
+{% when '2' %}
+{% assign grid_item_width = 'col-two product-item' %}
+{% when '3' %}
+{% assign grid_item_width = 'col-three product-item' %}
+{% when '4' %}
+{% assign grid_item_width = 'col-four product-item' %}
+{% else %}
+{% assign grid_item_width = 'col-five product-item' %}
+{% endcase %}
+
+{% capture related_items %}
+{% for product in collections.all.products %}
+{%- for tag in product.tags -%}
+{% assign producttag = tag | split:'-' | first %}
+{% assign producthandle = product.handle | split:'-' | first %}
+{% if current_product.handle contains producttag %}
+{% if product.handle != current_product.handle %}
+  {% include 'product-card-grid' with grid_item_width  %}
+{% endif %}
+{% endif %}
+{%- endfor -%}
+{% endfor %}
+{% endcapture %}
+<section class="related-products">
+  <div class="container">
+    {% unless heading == blank %}
+    <div class="sec-title"><h3>{{ heading }}</h3></div>
+    {% endunless %}
+    <div class="col-row">
+     {{ related_items }}
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Related products",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": false
+    },
+    {
+      "id": "related_title",
+      "type": "text",
+      "label": "Section title",
+      "default": "Other Related products"
+    },
+    {
+      "type": "select",
+      "id": "related_grid_num",
+      "label": "Products per row (Desktop)",
+      "default": "4",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "related_grid_row",
+      "label": "Number of rows (Desktop)",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

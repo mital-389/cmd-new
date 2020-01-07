@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    {%- assign blog = blogs[section.settings.blog] -%}
+     {% paginate blog.articles by 2 %}
+    <section class="blog-section">
+      <div class="container">
+        <div class="col-row loadblog">
+          {% unless blog.articles_count == 0 %}
+          {%- for article in blog.articles -%}
+          <div class="col-two blog-item">
+            <div class="blog-cover">
+              <div class="blog-img">{%- if article.image.id -%}<a href="{{ article.url }}">{{ article.image | img_url:'x355' | img_tag:'Top Things to Consider when buying Ankle Boots' }}</a>{%- endif -%}</div>
+              <h5 class="blog-date">{%- if section.settings.show_date -%} {{ article.published_at | time_tag: format: 'date' }}{%- endif -%}</h5>
+              <h2 class="blog-list-title"><a href="{{ blog.url }}">{{ article.title }}</a></h2>
+              <div class="blog-short-desc">
+                {% if article.excerpt.size > 0 %}
+                <p>{{ article.excerpt }}</p>
+                {% else %}
+                <p>{{ article.content | strip_html | truncate: 230 }}</p>
+                {% endif %}
+              </div>
+              <div class="link-btn"><a href="{{ article.url }}">Read More <span>➝</span></a></div>
+            </div>
+          </div>
+          {%- endfor -%}
+          {% endunless %}
+        </div>
+        <div class="col-row jc-c">
+          <div class="load-button"> {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Load More Articles</a> {%- endif -%}</div>
+        </div>
+      </div>
+    </section>
+     {% endpaginate %}
+    {{ 'ajaxinate.min.js' | asset_url | script_tag }}
+    <script>
+          document.addEventListener("DOMContentLoaded", function() {
+            var endlessClick = new Ajaxinate();
+          });
+      document.addEventListener("DOMContentLoaded", function() {
+        var endlessClick = new Ajaxinate({
+          container: '.loadblog',
+          pagination: '.load-button',
+          method:'click'
+        });
+      });
+    </script>
+  </body>
+</html>
+{% schema %}
+  {
+    "name": "Blog Page",
+    "settings": [
+		{
+			"type":"checkbox",
+			"id":"show_date",
+			"label":"Show Date",
+			"default":true
+		},
+		{
+			"id":"blog",
+			"type":"blog",
+			"label":"blog"
+		}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

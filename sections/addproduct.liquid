@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    {% for image in product.images %}
+    	<img src="{{ image | img_url:'150x150' }}" alt="{{ image.alt | escape }}">
+    {% endfor %}
+  </body>
+</html>
+
+<script>
+  var selectCallback = function(variant, selector) {
+   if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+     
+    if (variant && variant.featured_image) {
+      var newImage = variant.featured_image; // New image object.
+      var mainImageDomEl = jQuery('.product-gallery img')[0]; // DOM element of main image we need to swap.
+      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    }
+    
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      if(variant.price < variant.compare_at_price)
+      {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + " <del>" + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+      } 
+      else 
+      {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+      }
+    } 
+    else 
+   	{
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ?  "sold out" : "unavailable" ;
+      jQuery('#price-preview').html(message);
+    }                                 
+  };
+
+  jQuery(document).ready(function($){
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+    {% endif %}
+  });
+  </script>

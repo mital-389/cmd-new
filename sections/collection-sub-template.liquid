@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+{%- assign limit = 3 -%}
+{% paginate collection.products by limit %}
+<section class="shop-list">
+    <div class="container">
+        <div class="filter-tools">
+            <div class="categoty-filter">
+                <span class="dropdown-title">{{ section.settings.linkheading }}</span>
+                <ul class="dropdown">
+                  {% assign link = linklists[section.settings.collectionlist] %}
+                  {%- for link in link.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+                <p class="total-items">{{ collection.all_products_count }} Items</p>
+            </div>
+          	{% assign c = 0 %}
+            {%- for tag in collection.all_tags -%}
+            	{% capture cat %}{{ cat }}{% capture temp_cat %}{% if tag contains '_' %}{% assign cat_grp = tag | split: '_' %}{{ cat_grp.first }}{% endif %}{% endcapture %}{% unless cat contains temp_cat %}{% if tag contains '_' %}{% assign new_cat_grp = tag | split: '_' %}{{ new_cat_grp.first }}{% endif %}{% unless forloop.last %}+{% endunless %}{% assign c = c | plus: 1 %}{% endunless %}{% endcapture %}  
+	        {%- endfor -%}
+            <div class="filterbysize">
+              {% assign cat_array = cat | split: '+' %}
+              {% for i in cat_array %}
+              {% unless i == '' %}
+              <p>Filter by {{ i }}</p>
+              <div class="{{ i }}">
+                <ul class="filter-{{ i }}">
+                  {% for tag in collection.all_tags %}
+                  {% if tag contains i %}
+                  {% if current_tags contains tag %}
+                  <li class="active">{{ tag | remove: i | remove: '_' | append: '&nbsp;x' | link_to_remove_tag: tag | replace: '<a', '<a class="my_filter"' }}</li>
+                  {% else %}
+                  <li class="refresh">{{ tag | remove: i | remove: '_' | link_to_add_tag: tag | replace: '<a', '<a class="my_filter"'}}</li>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endunless %}
+              {% endfor %}
+            </div>
+        </div>
+        <div class="col-row filteroption">
+          {%- for product in collection.products -%}
+          
+            <div class="col-three product-item">
+                <div class="product-img">
+                    <a href="{{ product.url }}">{{ product.featured_image | img_url:'master' | img_tag }}</a>
+                    <div class="quick-shop">
+                        <a href="{{ product.url }}?view=quickview" class="quick-btn">{%- if section.settings.btntext != blank -%}{{ section.settings.btntext }}{%- endif -%}</a>
+<!--                         <div class="quick-sizes">
+                          {%- for option in product.options_with_values -%}
+                          	{%- if option.name=='Size' -%}
+                          		{%- for option_val in option.values -%}
+                              		<a href="#">{{ option_val }}</a>
+                          		{%- endfor -%}
+                          	{%- endif -%}
+                          {%- endfor -%}
+                        </div> -->
+                    </div>
+                </div>
+                <h2 class="product-meta">
+                    <span class="product-title"><a href="{{ product.url }}">{{ product.title }}</a><span class="price">{{ product.price | money }}</span></span>
+                  	 {%- for option in product.options_with_values -%}
+                  		{% assign color_cnt = 0 %}
+                        {%- if option.name=='Color' -%}
+                        	{% assign color_cnt = option.values | size %}
+                        {%- endif -%}
+                     {%- endfor -%}
+                      {%- if color_cnt > 0 -%}
+                      	<span class="product-conf">{{ color_cnt }} Colors Available</span>
+                      {%- else -%}
+                      	<span class="product-conf">Colors Not avalable</span>
+                      {%- endif -%}
+                </h2>
+            </div>
+         
+          {%- endfor -%}
+          <div class="number">
+            {% if paginate.next.is_link %}
+            <a class="next" href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+            {% endif %}
+            {% assign count = paginate.pages %}
+            {% for part in (1..count) %}
+            	<li class='paginationnumber' {% if paginate.current_page == part %}class="active"{% endif %}><a href="{{ collection.url }}?page={{ forloop.index }}">{{ forloop.index }}</a></li>
+            {% endfor %}
+            {% if paginate.previous.is_link %}
+            <a class="prev" href="{{ paginate.previous.url }}">{{ paginate.previous.title }}</a>
+            {% endif %}
+          </div>
+        </div>
+    </div>
+</section>
+{% endpaginate %}
+</body>
+</html>
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": [
+		{
+            "type":"text",
+            "id":"linkheading",
+            "label":"Heading link",
+			"default":"Shop All"
+		},
+		{
+			"type":"link_list",
+			"id":"collectionlist",
+			"label":"Choose Link List"
+		},
+		{
+			"type":"text",
+			"id":"btntext",
+			"label":"Button Text",
+			"default":"+ Quick Shop"
+		}
+	]
+  }
+{% endschema %}

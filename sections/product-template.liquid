@@ -1,0 +1,345 @@
+{% include 'bold-product' with product, hide_action: 'break' %}{% if bold_hidden_product %}{% break %}{%endif %}
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<section class="product-detail">
+  {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+    <div class="container">
+        <div class="col-row ai-s">
+            <div class="col-two">
+              {% for imagefeature in product.images %}
+              {% if forloop.index==1 %}
+              {% assign selected = "" %}
+              {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+              {% if image == featured_image %}
+              {% assign selected = "flex-active-slide" %}
+              {% endif %}
+              {% assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' %}
+              {%- if imagefeature.alt contains 'youtube' -%}
+                 <div class="product-gallery product-slide slide_image {{ selected }}" data-image-id="{{ image.id }}" data-flexslider-index="{{ forloop.index0 }}">
+                  	<iframe width="560" height="315" src="{{ imagefeature.alt }}?rel=0&autoplay=1&loop=1&playlist=ZXX75Hwjcs0&mute=1;showinfo=0" allow="autoplay" frameborder="0" allowfullscreen  id="product-video"  class="feature-row__image {{ img_class }} lazyload{% unless featured_image == image %} lazypreload{% endunless %}"></iframe>
+                 </div>
+              {%- else -%}
+              <div class="product-gallery">
+                <img class="image-zoom" id="ProductPhotoImg" src="{{ imagefeature | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" data-zoom="{{ imagefeature.src | img_url: 'original', scale: 2 }}" data-zoom-src="{{ img_url }}">
+              </div>
+              {%- endif -%}
+              {%- endif -%}
+              {% endfor %}
+              <div class="product-slider">
+                <ul class="imagelist">
+                  {% for image in product.images %}
+                  <li class="thumbimage">
+                	<a  href="{{ image | img_url:'1024x1024' }}" class="{%- if forloop.index0 == 0 -%}active{%- endif -%}">
+                		<img src="{{ image | img_url:'150x150' }}" alt="{{ image.alt | escape }}">
+                	</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+            <div class="col-two">
+                <div class="product-summery">
+                    <form action="/cart/add" method="post" class="variants clearfix" >
+                        <h1>{{ product.title }}</h1>
+                        <h6 id = "price-preview">{{ product.price | money }}</h6>
+                        <div class="product-options">
+                            <p>{{ section.settings.colorhead }}</p>
+							<div class="select clearfix"{% if hide_default_title %} style="display:none"{% endif %}>
+                              <select id="product-select" name="id">
+                                {% for variant in product.variants %}
+                                	<option value="{{ variant.id }}"{% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}">{{ variant.title }} - {{ variant.price | money }}</option>
+                                {% endfor %}
+                              </select>
+                              {% for option in product.options %}
+                               	 {% include 'swatch' with option %}
+                              {% endfor %}
+                            </div>
+                      	</div>
+                      	{% assign todaydate = "now" | date:"%Y-%m-%d %H:%M" %}
+                      	{{ todaydate }}
+                        <div class="clock" style="margin:2em;"></div>
+                        {% for pp in collections.all.products %}
+                        {% assign ppa=all_products[pp.handle] %}
+                        {% assign prdhandle = ppa.handle %}
+                      	{% assign phandle = product.handle | split:'_' | first %}
+                      	{% if prdhandle contains phandle %}
+                        {% for tg in pp.tags %}
+                        {% assign tags = tg | split:'_' | last %}
+                      	{% assign tagsfirst = tg | split:'_' | first %}
+                      		{% if tagsfirst == phandle %}
+                        		<li class="handle" style="background-color:{{ tags }}"><a href="{{ pp.handle }}" class="handle" ></a></li>
+                      		{% endif %}
+                        {% endfor %}
+                      	{% endif %}
+                        {% endfor %}
+                            <p class="size-chart-link"><a href="javascipt:void(0);" class="opensizechart">{{ section.settings.sizebottomtext }}</a></p>
+                      		<div class="ro_widget"></div>
+                            <div class="add-cart-options">
+                                <div class="qty">
+                                  <div class="qty">
+                                  <label for="Quantity-{{ section.id }}">Select Quantity</label>
+                                  <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" class="justselect" pattern="[0-9]*" data-quantity-input>
+                                </div>
+                                </div>
+                                <div class="add-to-cart">
+                                    <button type="submit" id="add-to-cart" name="add" class="addtocart">{{ section.settings.btntext }}</button>
+                                </div>
+                              	<div class="add-to-cart">
+                                    <button type="submit" id="donate" name="add" class="donation">Donate It</button>
+                                </div>
+                            </div>
+                            <div class="product-tag">
+                              {% for pr in collections.all.products %}
+                              	{% if product.tags contains pr.handle  %}
+                                  <h2>Also Available in</h2>
+                                  <a href={{ pr.url }}>{{ pr | img_url | img_tag }}</a>
+                                  <p class="tl">{{ pr.title }}</p>
+                              	{% endif %}
+                              {% endfor %}
+                      		</div>
+                            <div class="product-description">
+                                <div class="product-faq">
+                                  {%- if section.settings.que != blank  -%}
+                                    <p><strong>{{ section.settings.que }}</strong></p>
+                                    <div class="link-btn"><a href="#">Email Us <span>➝</span></a></div>
+                                  {%- endif -%}
+                                </div>
+                            </div>
+                    </form>
+                  {% assign prod = all_products['donation'] %}
+                  {% form 'product', prod %}
+                  	{% assign productid = all_products['donation'].variants.first.id %}
+                    <input type="hidden" id="product-select" name="id" value="{{ productid }}">
+                    <input type="hidden" id="qty" name="quantity" value="1">
+                    <button type="submit" id="add-to-cart3" class="btndonation" style="display:none">Donation</button>
+                  {% endform %}
+                </div>
+            </div>
+        </div>
+      <div class="accordion">
+        {%- assign description = product.metafields.subscriptions -%}
+        {%- for field in description -%}
+        <div class="accordion-section-1">
+          <a href="#accordion-{{ forloop.index }}" class="accordion-section-title">{{ field | first }}</a>
+          <div class="accordion-section-content" id="accordion-{{ forloop.index }}" style="display: none;">
+            {{ field | last }}
+          </div>
+        </div>
+        {%- endfor -%}
+      </div>
+<!--       <p class="box">Other content.</p>
+      <ul class="ul">
+        <li>Buy milk</li>
+        <li>Take the dog for a walk</li>
+        <li>Exercise</li>
+        <li>Write code</li>
+        <li>Play music</li>
+        <li>Relax</li>
+      </ul> -->
+    </div>
+</section>
+  
+<div class="size-chart">
+    <div class="close">
+        <button class="close-btn"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 31.4 31.2" style="enable-background:new 0 0 31.4 31.2;" xml:space="preserve"><rect x="13.7" y="-4.3" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)" width="4" height="40" fill="#000000"/><rect x="-4.3" y="13.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -6.498 15.6875)" width="40" height="4" fill="#000000"/></svg></button>
+    </div>
+    <div class="size-chart-title">
+        <div class="sec-title">
+            <h2>Fit & Sizing</h2>
+            <p>This style tends to run a bit large. If you are in between sizes, we recommend sizing down. If you are a whole size, we recommend ordering your usual size. </p>
+        </div>
+    </div>
+    <div class="size-chart-detail">
+        <div class="chart-table">
+            <table>
+                <tr>
+                    <th>US</th>
+                    <td>5</td>
+                    <td>5.5</td>
+                    <td>6</td>
+                    <td>6.5</td>
+                    <td>7</td>
+                    <td>7.5</td>
+                    <td>8</td>
+                    <td>8.5</td>
+                    <td>9</td>
+                    <td>9.5</td>
+                    <td>10</td>
+                    <td>10.5</td>
+                </tr>
+                <tr>
+                    <th>EU</th>
+                    <td>35</td>
+                    <td>35</td>
+                    <td>36</td>
+                    <td>36</td>
+                    <td>37</td>
+                    <td>37</td>
+                    <td>38</td>
+                    <td>38</td>
+                    <td>39</td>
+                    <td>39</td>
+                    <td>40</td>
+                    <td>40</td>
+                </tr>
+            </table>
+        </div>
+        <p>Stylist tip: It is often best to buy leather shoes that fit snug upon first wear. This will allow them to soften and stretch around your feet.  </p>
+        <div class="product-faq">
+            <p><strong>Have a question about this product?</strong></p>
+            <div class="link-btn"><a href="#">Email Us <span>&#10141;</span></a></div>
+        </div>
+    </div>
+</div>
+ <script>
+   
+  var selectCallback = function(variant, selector) {
+   if (variant) {
+      var form = jQuery('#' + selector.domIdPrefix).closest('form');
+      for (var i=0,length=variant.options.length; i<length; i++) {
+        var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+        alert(radioButton);
+        if (radioButton.size()) {
+          radioButton.get(0).checked = true;
+        }
+      }
+    }
+     
+    if (variant && variant.featured_image) {
+      var newImage = variant.featured_image; // New image object.
+      var mainImageDomEl = jQuery('.product-gallery img')[0]; // DOM element of main image we need to swap.
+      Shopify.Image.switchImage(newImage, mainImageDomEl, switchImage); // Define switchImage (the callback) in your theme's JavaScript file.
+    }
+    
+    if (variant && variant.available) {
+      jQuery('#add-to-cart').removeAttr('disabled').removeClass('disabled'); // remove unavailable class from add-to-cart button, and re-enable button
+      if(variant.price < variant.compare_at_price)
+      {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}") + " <del>" + Shopify.formatMoney(variant.compare_at_price, "{{ shop.money_format }}") + "</del>");
+      } 
+      else 
+      {
+        jQuery('#price-preview').html(Shopify.formatMoney(variant.price, "{{ shop.money_format }}"));
+      }
+    } 
+    else 
+   	{
+      jQuery('#add-to-cart').addClass('disabled').attr('disabled', 'disabled'); // set add-to-cart button to unavailable class and disable button
+      var message = variant ?  "sold out" : "unavailable" ;
+      jQuery('#price-preview').html(message);
+    }                                 
+  };
+
+  jQuery(document).ready(function($){
+    new Shopify.OptionSelectors("product-select", { product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: true });
+    // Add label if only one product option and it isn't 'Title'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+      $('.selector-wrapper:eq(0)').prepend('<label>{{ product.options.first | escape }}</label>');
+    {% endif %}
+  });
+          
+  </script>
+  {{ 'shop.css' | asset_url | stylesheet_tag }}
+  <script type="text/javascript">
+    var clock;
+    $(document).ready(function() {
+//       var s_date = '{{ start_date }}';
+//       var e_date = '{{ end_date }}';
+//       var now = '{{ todaydate }}'
+//       var currentDate = new Date(s_date);
+//       var futureDate  = new Date(e_date);
+//       var todayDate = new Date(now);
+//       var diff = futureDate.getTime() / 1000 - todayDate.getTime() / 1000;
+//       clock = $('.clock').FlipClock(diff,{
+//         clockFace: 'DailyCounter',
+//         countdown: true
+//       });
+  	var start_date = '{{ section.settings.start_date | date: "%s" }}';
+    var end_date = '{{ section.settings.end_date | date: "%s" }}';
+    var now = '{{ 'now' | date: '%s' }}';
+    var diff = (end_date -  now );
+    if(start_date < end_date && now  < end_date){
+      //alert(now);
+      if(diff <= 86400){
+        var clock = $('.clock').FlipClock(diff,{
+          countdown: true,
+        });		
+      }else{
+        var clock = $('.clock').FlipClock(diff,{
+          clockFace: 'DailyCounter',
+          countdown: true,
+          showSeconds: false,
+        });	
+      }
+    }  
+  });
+  </script>
+</body>
+</html>
+{% schema %}
+  {
+    "name": "Product Settings",
+    "settings": [
+		{
+			"type":"text",
+			"id":"colorhead",
+			"label":"Color Heading",
+			"default":"Caramel"
+		},
+		{
+			"type":"text",
+			"id":"sizebottomtext",
+			"label":"Size Bottom Text",
+			"default":"Size Guide"
+		},
+		{
+			"type":"text",
+			"id":"btntext",
+			"label":"Button Text",
+			"default":"Add to Bag"
+		},
+		{
+			"type":"text",
+			"id":"que",
+			"label":"Ask Question",
+			"default":"Have a question about this product?"
+		},
+		{
+			"type":"text",
+			"id":"start_date",
+			"label":"Start Date"
+		},
+		{
+			"type":"text",
+			"id":"end_date",
+			"label":"End Date"
+		}
+	]
+  }
+{% endschema %}
+<!-- <script>
+  jQuery(document).ready(function($){
+    var im = [];
+    {% for image in product.images %}
+    im.push({url: "{{ image | img_url: 'medium'  }}", alt: "{{ image.alt }}"}); 
+             {% endfor %}
+
+             $('#product-select-option-1').change(function() {
+             var selected = $(this).val(),mainImage = jQuery('.product-gallery img').attr('src').replace('_510x510', '_medium');
+             arr = [];
+             var addImage = $.each( im, function( i, image ) {
+             var alt = im[i].alt, url = im[i].url;
+             console.log(alt);
+            });
+    console.log(arr.push(addImage));    
+    $.when.apply($, arr).done(function (){
+//       $('.swatch-element').click(function(){
+//         var src = $(this).find('label').attr('data-attr');
+//         $('.product-gallery img').attr('src', src);
+//       });
+    });
+  });
+  });
+  });
+</script> -->
